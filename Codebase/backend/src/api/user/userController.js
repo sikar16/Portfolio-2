@@ -89,36 +89,39 @@ const userController={
         }
           const hashedPassword = await bcrypt.hash(data.password, 10);
           const newUser = await prisma.user.create({
-          data: {
-            email: data.email,
-            phoneNumber: data.phoneNumber,
-            password: hashedPassword,
-            status: "ACTIVE",
-            userInfo: {
-              create: {
-                firstName: data.userInfo.firstName,
-                middleName: data.userInfo.middleName,
-                lastName: data.userInfo.lastName,
-                country: data.userInfo.country,
-                city: data.userInfo.city,
-
+            data: {
+              email: data.email,
+              phoneNumber: data.phoneNumber,
+              password: hashedPassword,
+              status: "ACTIVE",
+              userInfo: {
+                create: {
+                  firstName: data.userInfo.firstName,
+                  middleName: data.userInfo.middleName,
+                  lastName: data.userInfo.lastName,
+                  country: data.userInfo.country,
+                  city: data.userInfo.city,
+                },
+              },
+              userDetails: {
+                create: {
+                  title: data.userDetails.title,
+                  quote: data.userDetails.quote,
+                  yearsOfExperience: data.userDetails.yearsOfExperience,
+                  rate: data.userDetails.rate,
+                  aboutMe: data.userDetails.aboutMe,
+                  cv: data.userDetails.cv,
+                  heroImage: data.userDetails.heroImage,
+                  aboutImage: data.userDetails.aboutImage,
+                },
+              },
+              socialLinks: {
+                create: data.socialMediaLink.map((link) => ({
+                  name: link.name,
+                  link: link.link,
+                })),
               },
             },
-            userDetails: {
-              create: {
-                title: data.userDetails.title,
-                quote: data.userDetails.quote,
-                yearsOfExperience: data.userDetails.yearsOfExperience,
-                rate: data.userDetails.rate,
-                aboutMe: data.userDetails.aboutMe,
-                cv: data.userDetails.cv,
-                heroImage: data.userDetails.heroImage,
-                aboutImage: data.userDetails.aboutImage,
-                
-
-              },
-            },
-          },
         });
   
         return res.status(201).json({

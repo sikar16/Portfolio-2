@@ -44,7 +44,6 @@ model User {
   testimonials  Testimonial[]
   blogs         Blog[]
   socialLinks   SocialMediaLink[]
-  technologies  ProjectTechnology[]
 
   ProjectCategory ProjectCategory[]
 
@@ -117,14 +116,20 @@ model Project {
   name                String
   description         String
   demoLink            String?
+  tecnology            String?
   userId              Int
   projectCategoryId   Int
   projectCategory     ProjectCategory      @relation(fields: [projectCategoryId], references: [id])
   user                User                 @relation(fields: [userId], references: [id])
-  projectImagesId      Int  @unique
-  projectImage     ProjectImage       @relation(fields: [projectImagesId],references: [id])
-  technologiesId        Int    @unique
-  technologies        ProjectTechnology @relation(fields: [technologiesId],references: [id])  
+  projectImage     ProjectImage[]      
+}
+
+model ProjectImage {
+  id          Int     @id @default(autoincrement())
+  projectId Int
+  image       String
+  project Project    @relation(fields: [projectId], references: [id])
+  
 }
 
 model Blog {
@@ -133,15 +138,10 @@ model Blog {
   content     String
   userId      Int
   user        User         @relation(fields: [userId], references: [id])
-  blogImages   BlogImage[]  // Multiple images
+  blogImages   BlogImage[]  
 }
 
-model ProjectImage {
-  id          Int     @id @default(autoincrement())
-  image       String
 
-  Project Project[]
-}
 
 model BlogImage {
   id          Int     @id @default(autoincrement())
@@ -169,11 +169,3 @@ model Testimonial {
   user                User     @relation(fields: [userId], references: [id])
 }
 
-model ProjectTechnology {
-  id          Int     @id @default(autoincrement())
-  name        String
-
-  User User[]
-
-  Project Project[]
-}

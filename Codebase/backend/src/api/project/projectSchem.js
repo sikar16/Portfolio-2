@@ -2,13 +2,27 @@ import z from "zod";
 
 const projectSchema = {
   create: z.object({
-    name: z.string().min(4), // Ensure name has a minimum length
+    name: z.string().min(4,{message:"name of project is required"}),
     description: z.string().optional(),
     demoLink: z.string().optional(),
-    technologies: z.array(z.string()), // Expecting an array of strings
-    userId: z.number().int(), // User ID
-    projectCategoryId: z.number().int(), // Project category ID
-    imageUrl: z.array(z.string()), // Expecting an array of strings for image URLs
+    tecnology: z.string(),
+    userId: z.number(),
+    projectCategoryId: z.number(),
+    projectImage: z.array(z.object({ 
+      image: z.string(), 
+    })),
+  }),
+  updateProject: z.object({
+    name: z.string().min(4,{message:"name of project is required"}),
+    description: z.string().optional(),
+    demoLink: z.string().optional(),
+    tecnology: z.string(),
+    projectImage: z.array(z.object({ 
+      image: z.string(), 
+    })),
+  }),
+  updateProjectCategory: z.object({
+    projectCategoryId: z.number(),
   }),
 };
 

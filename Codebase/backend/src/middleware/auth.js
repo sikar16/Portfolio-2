@@ -3,7 +3,15 @@ import { SECRET } from "../config/secret.js";
 import prisma from "../config/prisma.js";
 
 export const isAuth = async (req, res, next) => {
-  const token = req.headers.authorization;
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(403).json({
+      success: false,
+      message: "Not authorized: token not found",
+    });
+  }
+  
+  const token = authHeader.split(" ")[1]; 
 
   if (!token) {
     return res.status(401).json({
@@ -14,27 +22,7 @@ export const isAuth = async (req, res, next) => {
   
   try {
     const payload = jwt.verify(token, SECRET);
-    
-    const user = await prisma.user.findFirst({
-      where: {
-        id: +payload.id,
-      },
-    });
-
-    const serviceProvider = await prisma.serviceProvider.findFirst({
-      where: {
-        id: +payload.id,
-      },
-    });
-
-    if (!user && !serviceProvider) {
-      return res.status(404).json({
-        success: false,
-        message: "User or ServiceProvider not found",
-      });
-    }
-    
-    req.user = user || serviceProvider; // Attach user or serviceProvider to req
+    req.payload = payload;
     next();
   } catch (error) {
     return res.status(403).json({
@@ -44,29 +32,63 @@ export const isAuth = async (req, res, next) => {
   }
 };
 
-export const isServiceProvider = (req, res, next) => {
-  const account = req.user;
-  if (account && !account.fullName) { // Assuming fullName exists only in ServiceProvider
-    return next();
+export const isServiceProvider = async (req, res, next) => {
+  try {
+    const serviceProvider = await prisma.serviceProvider.findFirst({
+      where: {
+        id: +req.payload.id,
+      },
+    });
+    
+    if (!serviceProvider) {
+      return res.status(403).json({
+        success: false,
+        message: "Access denied: not a service provider",
+      });
+    }
+        
+    req.user = serviceProvider;
+    next();
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
   }
-  return res.status(401).json({ success: false, message: "Not a service provider" });
 };
 
-export const isUser = (req, res, next) => {
-  const account = req.user;
-  if (account && account.email) { // Assuming email exists only in User
-    return next();
+export const isUser = async (req, res, next) => {
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        id: +req.payload.id,
+      },
+    });
+    
+    if (!user) {
+      return res.status(403).json({
+        success: false,
+        message: "Access denied: not a user",
+      });
+    }
+    
+    req.user = user;
+    next();
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
   }
-  return res.status(401).json({ success: false, message: "Not a user" });
 };
 
 // Example of a role-based access control
-export const isAnyRole = (...roles) => {
-  return (req, res, next) => {
-    const account = req.user;
-    if (account && roles.includes(account.role)) {
-      return next();
-    }
-    return res.status(401).json({ success: false, message: "Access denied" });
-  };
-};
+// export const isAnyRole = (...roles) => {
+//   return (req, res, next) => {
+//     const account = req.user;
+//     if (account && roles.includes(account.role)) {
+//       return next();
+//     }
+//     return res.status(401).json({ success: false, message: "Access denied" });
+//   };
+// };

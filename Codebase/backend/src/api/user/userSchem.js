@@ -22,6 +22,10 @@ const userSchem = {
       heroImage: z.string(), 
       aboutImage: z.string(),
     }),
+    socialMediaLink: z.array(z.object({ 
+      name: z.string(),
+      link: z.string(),
+    })),
   }),
 
   updateUser:z.object({
@@ -46,6 +50,10 @@ const userSchem = {
     heroImage: z.string(), 
     aboutImage: z.string(),
   }),
+  socialMediaLink: z.array(z.object({ 
+    name: z.string(),
+    link: z.string(),
+  })),
 };
 
 export default userSchem;

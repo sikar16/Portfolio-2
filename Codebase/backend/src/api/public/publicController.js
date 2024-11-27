@@ -39,7 +39,7 @@ const publicController = {
       // Determine the role based on the type of user
       const role = user.fullName ? 'serviceProvider' : 'user'; // Adjust based on your schema
       const payload={
-        userId: user.id, 
+        id: user.id, 
         email: user.email, 
         role: role
       }

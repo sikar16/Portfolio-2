@@ -129,12 +129,10 @@ const projectCategoryController={
     deleteprojectCategory: async (req, res, next) => {
       try {
         const projectCategoryId = parseInt(req.params.id, 10);
-        
-        // Validate the skill category ID
-        if (isNaN(projectCategoryId)) {
+                if (isNaN(projectCategoryId)) {
           return res.status(400).json({
             success: false,
-            message: "Invalid skill category ID",
+            message: "Invalid project category ID",
           });
         }
         
