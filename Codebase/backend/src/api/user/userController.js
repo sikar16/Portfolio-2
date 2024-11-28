@@ -78,7 +78,7 @@ const userController={
         }
           const isPhoneExist = await prisma.user.findFirst({
           where: {
-            phoneNumber: data.phoneNumber,
+             phoneNumber: data.phoneNumber,
           },
         });
         if (isPhoneExist) {
@@ -169,6 +169,12 @@ const userController={
           data: {
             email: data.email,
             phoneNumber: data.phoneNumber,
+            socialLinks: {
+              create: data.socialMediaLink.map((link) => ({
+                name: link.name,
+                link: link.link,
+              })),
+            },
           },
         });
   

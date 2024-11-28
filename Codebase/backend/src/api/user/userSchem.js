@@ -31,6 +31,10 @@ const userSchem = {
   updateUser:z.object({
     email: z.string().email(),
     phoneNumber: z.string(),
+    socialMediaLink: z.array(z.object({ 
+      name: z.string(),
+      link: z.string(),
+    })),
   }),
 
   updateUserInfo:z.object({
