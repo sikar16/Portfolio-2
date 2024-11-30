@@ -124,3 +124,8 @@ export const projectCategoryData = [
     { id: 4, projectCategoryName: 'Data Science' },
     { id: 5, projectCategoryName: 'Game Development' },
 ];
+
+export const blogData = [
+    { id: 1, title: 'First Blog Post', content: 'This is the content of the first blog post.', image: 'image1.jpg' },
+    { id: 2, title: 'Second Blog Post', content: 'This is the content of the second blog post.', image: 'image2.jpg' },
+];

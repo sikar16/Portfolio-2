@@ -58,15 +58,15 @@ const SkillCategoryTable = () => {
             {
                 accessorKey: 'skillCategory',
                 header: 'Skill Category',
-                size: 150,
+                size: 80,
             },
             {
                 id: 'action',
                 header: 'Action',
-                size: 100,
+                size: 80,
                 Cell: ({ row }) => (
                     <Box>
-                        <div className='flex justify-center'>
+                        <div className='flex'>
                             <MenuItem onClick={() => { /* Edit logic */ }}>
                                 <ListItemIcon>
                                     <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24">

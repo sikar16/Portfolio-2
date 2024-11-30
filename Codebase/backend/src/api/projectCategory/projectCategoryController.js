@@ -8,7 +8,7 @@ const projectCategoryController={
             }) 
             return res.status(200).json({
              success: true,
-             message: "fetching all skill category",
+             message: "fetching all project category",
              data: projectCategory,
            });
          } catch (error) {
@@ -59,6 +59,7 @@ const projectCategoryController={
         const isprojectCategoryExist = await prisma.projectCategory.findFirst({
           where: {
             name: data.name,
+            userId:data.user
           },
         });
   
@@ -94,7 +95,7 @@ const projectCategoryController={
         if (isNaN(projectCategoryId)) {
             return res.status(400).json({
               success: false,
-              message: "Invalid skill category ID",
+              message: "Invalid project category ID",
             });
           }
           const data = projectCategorySchem.update.parse(req.body);
@@ -105,7 +106,7 @@ const projectCategoryController={
           if (!projectCategory) {
             return res.status(404).json({
               success: false,
-              message: "skill category not found",
+              message: "project category not found",
             });
           }
           const updateprojectCategory=await prisma.projectCategory.update({
@@ -136,7 +137,7 @@ const projectCategoryController={
           });
         }
         
-        // Check if the skill category exists
+        // Check if the project category exists
         const projectCategory = await prisma.projectCategory.findUnique({
           where: { id: projectCategoryId },
         });
@@ -148,7 +149,7 @@ const projectCategoryController={
           });
         }
     
-        // Delete the skill category
+        // Delete the project category
         await prisma.projectCategory.delete({
           where: { id: projectCategoryId },
         });
@@ -159,7 +160,7 @@ const projectCategoryController={
           message: "project category deleted successfully",
         });
       } catch (error) {
-        console.error("Error deleting skill category:", error); 
+        console.error("Error deleting project category:", error); 
         return res.status(500).json({
           success: false,
           message: error.message ,

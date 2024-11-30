@@ -1,4 +1,3 @@
-import hero from "../assets/hero.png";
 
 function AboutMe() {
     return (
@@ -7,7 +6,7 @@ function AboutMe() {
                 <div className="lg:w-1/2 flex justify-center ">
                     <div className="relative w-[420px] h-[420px] bg-[#FEB273] rounded-full flex items-center justify-center overflow-hidden shadow-lg transition-transform transform hover:scale-105">
                         <img
-                            src={hero}
+                            src="image"
                             alt="Mihiretu Tigistu"
                             className="w-full h-full object-cover rounded-full border-4 border-white shadow-md"
                         />

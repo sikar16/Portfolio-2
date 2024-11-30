@@ -1,9 +1,13 @@
 import { FaMoon, FaSun, FaBars, FaTimes } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
+import { MdNightlight, MdLightMode, MdBrightnessAuto } from 'react-icons/md';
+import { useThemeData } from '../context/them_context';
+import IconContainer from './icon/Icon_container';
 
 function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isSticky, setIsSticky] = useState(false);
+    const { themeData, setThemeData } = useThemeData();
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -11,11 +15,7 @@ function Header() {
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.pageYOffset > 0) {
-                setIsSticky(true);
-            } else {
-                setIsSticky(false);
-            }
+            setIsSticky(window.pageYOffset > 0);
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -24,11 +24,29 @@ function Header() {
         };
     }, []);
 
-    const navItems = ["Home", "About", "Service", "Portfolio", "Blog", "Contact"];
+    const getThemeIcon = () => {
+        if (themeData === "light") {
+            return MdNightlight;
+        } else if (themeData === "dark") {
+            return MdLightMode;
+        } else if (themeData === "system") {
+            return MdBrightnessAuto;
+        }
+    };
+
+    const toggleThemeData = () => {
+        if (themeData === "light") {
+            setThemeData("dark");
+        } else if (themeData === "dark") {
+            setThemeData("light");
+        } else if (themeData === "system") {
+            setThemeData("dark");
+        }
+    };
 
     return (
         <header
-            className={`bg-gray-800 text-white py-4 px-6 sm:px-8 flex justify-between items-center shadow-md fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isSticky
+            className={`bg-gray-800 text-white py-4 px-6 sm:px-8 flex justify-between items-center shadow-md fixed top-0 left-0 right-0 z-50 transition-all duration-300 dark:text-red-900 ${isSticky
                 ? 'lg:w-[96%] lg:mx-[2%] lg:rounded-[30px] py-3'
                 : 'lg:w-full lg:mx-0 py-4'
                 }`}
@@ -44,61 +62,91 @@ function Header() {
             {/* Desktop Navigation */}
             <nav className="hidden md:block">
                 <ul className="flex gap-3">
-                    {navItems.map((item) => (
-                        <li key={item} className="relative group">
-                            <a
-                                href="#"
-                                className="px-4 py-2 rounded-3xl hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
-                            >
-                                {item}
-                            </a>
-                            {item === "Service" && (
-                                <ul className="absolute top-full left-0 bg-gray-800 py-2 px-4 rounded-lg shadow-lg mt-2 invisible group-hover:visible transition-opacity duration-300">
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 rounded-md hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
-                                        >
-                                            Web Development
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 rounded-md hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
-                                        >
-                                            Mobile App Development
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 rounded-md hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
-                                        >
-                                            UI/UX Design
-                                        </a>
-                                    </li>
-                                </ul>
-                            )}
-                        </li>
-                    ))}
+                    <li className="relative group">
+                        <a
+                            href="#"
+                            className="px-4 py-2 rounded-3xl hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
+                        >
+                            Home
+                        </a>
+                    </li>
+                    <li className="relative group">
+                        <a
+                            href="#"
+                            className="px-4 py-2 rounded-3xl hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
+                        >
+                            About
+                        </a>
+                    </li>
+                    <li className="relative group">
+                        <a
+                            href="#"
+                            className="px-4 py-2 rounded-3xl hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
+                        >
+                            Service
+                        </a>
+                        <ul className="absolute top-full left-0 bg-gray-800 py-2 px-4 rounded-lg shadow-lg mt-2 invisible group-hover:visible transition-opacity duration-300">
+                            <li>
+                                <a
+                                    href="#"
+                                    className="block px-4 py-2 rounded-md hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
+                                >
+                                    Web Development
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    className="block px-4 py-2 rounded-md hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
+                                >
+                                    Mobile App Development
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    className="block px-4 py-2 rounded-md hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
+                                >
+                                    UI/UX Design
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li className="relative group">
+                        <a
+                            href="#"
+                            className="px-4 py-2 rounded-3xl hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
+                        >
+                            Portfolio
+                        </a>
+                    </li>
+                    <li className="relative group">
+                        <a
+                            href="#"
+                            className="px-4 py-2 rounded-3xl hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
+                        >
+                            Blog
+                        </a>
+                    </li>
+                    <li className="relative group">
+                        <a
+                            href="#"
+                            className="px-4 py-2 rounded-3xl hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
+                        >
+                            Contact
+                        </a>
+                    </li>
                 </ul>
             </nav>
 
             {/* Dark/Light Mode Toggle and Mobile Menu Icon */}
             <div className="flex items-center gap-4">
-                <button
-                    aria-label="Toggle dark mode"
-                    className="text-[20px] hover:text-[#FF7D00] transition-colors duration-300"
-                >
-                    <FaMoon />
-                </button>
-                <button
-                    aria-label="Toggle light mode"
-                    className="text-[20px] hover:text-[#FF7D00] transition-colors duration-300"
-                >
-                    <FaSun />
-                </button>
+                <IconContainer
+                    handler={toggleThemeData}
+                    Icon={getThemeIcon()}
+                    iconsClassName="my-custom-icon-class"
+                    children={null}
+                />
 
                 {/* Mobile Menu Button */}
                 <button
@@ -114,17 +162,60 @@ function Header() {
             {isMobileMenuOpen && (
                 <div className="fixed top-16 left-0 right-0 bg-gray-800 p-4 rounded-lg shadow-lg md:hidden z-50">
                     <ul className="flex flex-col gap-4">
-                        {navItems.map((item) => (
-                            <li key={item}>
-                                <a
-                                    href="#"
-                                    className="block px-4 py-2 rounded-md text-center hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    {item}
-                                </a>
-                            </li>
-                        ))}
+                        <li>
+                            <a
+                                href="#"
+                                className="block px-4 py-2 rounded-md text-center hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#"
+                                className="block px-4 py-2 rounded-md text-center hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                About
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#"
+                                className="block px-4 py-2 rounded-md text-center hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                Service
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#"
+                                className="block px-4 py-2 rounded-md text-center hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                Portfolio
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#"
+                                className="block px-4 py-2 rounded-md text-center hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                Blog
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#"
+                                className="block px-4 py-2 rounded-md text-center hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                Contact
+                            </a>
+                        </li>
                     </ul>
                 </div>
             )}

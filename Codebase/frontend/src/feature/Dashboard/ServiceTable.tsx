@@ -25,7 +25,7 @@ export type Service = {
 
 const CustomToolbar = ({ table }) => {
     return (
-        <Box display="flex" alignItems="center" justifyContent="space-between" p={1}>
+        <Box display="flex " alignItems="center" justifyItems="flex-start" justifyContent="space-between" p={1}>
             <TextField
                 {...table.getColumnFilterProps('global')}
                 size="small"
@@ -78,7 +78,7 @@ export const ServiceTable = () => {
                 size: 100,
                 Cell: ({ row }) => (
                     <Box>
-                        <div className='flex justify-center'>
+                        <div className='flex'>
                             <MenuItem onClick={() => { /* Edit logic */ }}>
                                 <ListItemIcon>
                                     <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24">

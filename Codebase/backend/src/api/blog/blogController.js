@@ -58,6 +58,7 @@ const blogController={
                 const isBlogExist = await prisma.blog.findFirst({ 
             where: {
               content: data.content,
+              userId:data.userId
             },
           });
       
@@ -106,6 +107,7 @@ const blogController={
         const isblogExist = await prisma.blog.findFirst({
           where: {
             id:data.blogId
+            
           },
         });
     

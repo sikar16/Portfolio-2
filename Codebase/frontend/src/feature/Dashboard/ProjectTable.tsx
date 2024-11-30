@@ -109,7 +109,7 @@ const ProjectTable = () => {
                 size: 100,
                 Cell: ({ row }) => (
                     <Box>
-                        <div className='flex justify-center'>
+                        <div className='flex'>
                             <MenuItem onClick={() => { /* Edit logic */ }}>
                                 <ListItemIcon>
                                     <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24">

@@ -61,6 +61,7 @@ createSkill: async (req, res, next) => {
         const isSkillExist = await prisma.skill.findFirst({
             where: {
                 name: data.name,
+                userId:data.userId
             },
         });
 

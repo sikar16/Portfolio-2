@@ -294,8 +294,6 @@ const userController={
     deleteUser: async (req, res, next) => {
       try {
           const userId = parseInt(req.params.id, 10);
-  
-          // Validate user ID
           if (isNaN(userId)) {
               return res.status(400).json({
                   success: false,
@@ -303,14 +301,18 @@ const userController={
               });
           }
   
-          // Check if the user exists
-          const user = await prisma.user.findFirst({
-              where: {
-                  id: +userId,
-              },
+          // Fetch the user and their related records
+          const user = await prisma.user.findUnique({
+              where: { id: userId },
               include: {
                   userDetails: true,
                   userInfo: true,
+                  services: true,
+                  skills: true,
+                  projects: true,
+                  testimonials: true,
+                  blogs: true,
+                  socialLinks: true,
               },
           });
   
@@ -321,21 +323,77 @@ const userController={
               });
           }
   
-          // Delete associated user details and user info
-          await prisma.userDetail.deleteMany({
+          await prisma.blogImage.deleteMany({
               where: {
-                userId: userId,
+                  blog: {
+                      userId: userId,
+                  },
               },
           });
   
-          await prisma.userInfo.deleteMany({
+          await prisma.blog.deleteMany({
               where: {
                   userId: userId,
               },
           });
   
-          // Delete the user
-          await prisma.user.delete({
+          await prisma.testimonial.deleteMany({
+              where: {
+                  userId: userId,
+              },
+          });
+  
+          await prisma.projectImage.deleteMany({
+              where: {
+                  project: {
+                      userId: userId,
+                  },
+              },
+          });
+  
+          await prisma.project.deleteMany({
+              where: {
+                  userId: userId,
+              },
+          });
+  
+          await prisma.skill.deleteMany({
+              where: {
+                  userId: userId,
+              },
+          });
+  
+          await prisma.service.deleteMany({
+              where: {
+                  userId: userId,
+              },
+          });
+  
+          await prisma.socialMediaLink.deleteMany({
+              where: {
+                  userId: userId,
+              },
+          });
+  
+          const userDetail = await prisma.userDetail.findUnique({
+              where: { userId: userId },
+          });
+  
+          if (userDetail) {
+              await prisma.userDetail.delete({
+                  where: { userId: userId },
+              });
+          }
+            const userInfo = await prisma.userInfo.findUnique({
+              where: { userId: userId },
+          });
+  
+          if (userInfo) {
+              await prisma.userInfo.delete({
+                  where: { userId: userId },
+              });
+          }
+            await prisma.user.delete({
               where: {
                   id: userId,
               },
@@ -349,7 +407,7 @@ const userController={
           console.error("Error deleting user:", error);
           return res.status(500).json({
               success: false,
-              message: error,
+              message: error.message ,
           });
       }
   }

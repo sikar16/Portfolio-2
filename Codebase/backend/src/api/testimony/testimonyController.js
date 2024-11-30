@@ -4,12 +4,7 @@ import testimonySchem from "./testimonySchem.js";
 const temstimonyController={
   getAlltestimony: async (req, res, next) => {
     try {
-        // Fetch all testimonials (reviews) from the database
-        const reviews = await prisma.testimonial.findMany({
-            include: {
-                // user: true, // Include user details if needed
-            },
-        });
+        const reviews = await prisma.testimonial.findMany({});
 
         return res.status(200).json({
             success: true,
@@ -68,16 +63,15 @@ getSingletestimony: async (req, res, next) => {
 },
 createtestimony: async (req, res, next) => {
   try {
-      // Validate the incoming request body against the Zod schema
       const data = testimonySchem.create.parse(req.body);
      
-      // Check if the testimony already exists
       const isTestimonyExist = await prisma.testimonial.findFirst({
           where: {
               feedback: data.feedback,
               reviewerFullName: data.reviewerFullName,
               reviewerImage: data.reviewerImage,
               reviewerTitle: data.reviewerTitle,
+              userId:data.user
           },
       });
 
@@ -88,7 +82,6 @@ createtestimony: async (req, res, next) => {
           });
       }
 
-      // Create a new testimony
       const testimony = await prisma.testimonial.create({
           data: {
               feedback: data.feedback,
@@ -96,7 +89,7 @@ createtestimony: async (req, res, next) => {
               reviewerImage: data.reviewerImage,
               reviewerTitle: data.reviewerTitle,
               user: {
-                  connect: { id: data.user }, // Link the user by ID
+                  connect: { id: data.user },
               },
           },
       });
@@ -126,7 +119,9 @@ updatetestimony: async (req, res, next) => {
 
         const data = testimonySchem.update.parse(req.body);
         const testimony = await prisma.testimonial.findFirst({
-            where: { id: +testimonyId },
+            where: { id: +testimonyId 
+                
+            },
         });
 
         if (!testimony) {

@@ -31,7 +31,7 @@ const publicController = {
       if (!isPasswordValid) {
         return res.status(401).json({
           success: false,
-          message: 'Invalid email or passwordnnnnnnnnn',
+          message: 'Invalid email or password',
         });
       }
 

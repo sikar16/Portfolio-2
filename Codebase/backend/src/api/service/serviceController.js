@@ -60,6 +60,7 @@ createservice: async (req, res, next) => {
         const isServiceExist = await prisma.service.findFirst({
             where: {
                 name: data.name,
+                userId:data.user
             },
         });
 

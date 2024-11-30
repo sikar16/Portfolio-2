@@ -59,6 +59,7 @@ const skillCategoryController={
         const isSkillCategoryExist = await prisma.skillCategory.findFirst({
           where: {
             name: data.name,
+            userId:data.user
           },
         });
   

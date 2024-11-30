@@ -1,4 +1,3 @@
-import hero from "../assets/hero.png"
 function Hero() {
     return (
         <>
@@ -21,7 +20,7 @@ function Hero() {
                     </div>
                     <div className="relative z-10 flex flex-col items-center ">
                         <div className="w-[600px] h-[600px] sm:w-[500px] sm:h-[500px] xl:w-[600px] xl:h-[600px] bg-[#FEB273] rounded-full  flex items-center justify-center overflow-hidden">
-                            <img src={hero} alt="Portrait of a person in a shirt and tie" className="w-[115%] h-[115%] object-cover absolute bottom-10 rounded-l-lg left-1/2 transform -translate-x-1/2 " />
+                            <img src="image" alt="image" className="w-[115%] h-[115%] object-cover absolute bottom-10 rounded-l-lg left-1/2 transform -translate-x-1/2 " />
                         </div>
                         <div className="absolute bottom-40 left-1/2 transform -translate-x-1/2 translate-y-1/2 flex font-semibold text-center items-center">
                             <div className="p-2 border border-white bg-white bg-opacity-40 flex rounded-3xl text-center">

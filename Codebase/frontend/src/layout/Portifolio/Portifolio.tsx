@@ -1,6 +1,6 @@
-import Header from "../component/Header"
-import Aboutme from "../feature/Aboutme"
-import Hero from "../feature/Hero"
+import Header from "../../component/Header"
+import Aboutme from "../../feature/Portifolio/Aboutme"
+import Hero from "../../feature/Portifolio/Hero"
 
 function Portifolio() {
     return (

@@ -34,7 +34,7 @@ const userSchem = {
     socialMediaLink: z.array(z.object({ 
       name: z.string(),
       link: z.string(),
-    })),
+    })).optional(),
   }),
 
   updateUserInfo:z.object({

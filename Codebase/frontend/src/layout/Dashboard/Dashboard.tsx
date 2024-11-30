@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import Portifolio from '../feature/Dashboard/Portifolio';
-import Profile from '../feature/Dashboard/Profile';
-import Service from '../feature/Dashboard/Service';
-import Project from '../feature/Dashboard/ProjectTable';
-import SkillCategoryTable from '../feature/Dashboard/SkillCategoryTable';
-import SkillTable from '../feature/Dashboard/SkillTable';
-import ProjectTable from '../feature/Dashboard/ProjectTable';
-import ProjectCategoryTable from '../feature/Dashboard/ProjectCategoryTable';
+import Portifolio from '../../feature/Dashboard/Portifolio';
+import Profile from '../../feature/Dashboard/Profile';
+import Service from '../../feature/Dashboard/Service';
+import Project from '../../feature/Dashboard/ProjectTable';
+import SkillCategoryTable from '../../feature/Dashboard/SkillCategoryTable';
+import SkillTable from '../../feature/Dashboard/SkillTable';
+import ProjectTable from '../../feature/Dashboard/ProjectTable';
+import ProjectCategoryTable from '../../feature/Dashboard/ProjectCategoryTable';
+import Blog from '../../feature/Dashboard/Blog';
 // import Portifolio from './Portifolio';
 
 const Dashboard = () => {
@@ -33,34 +34,39 @@ const Dashboard = () => {
 
     return (
         <div className="flex">
-            {/* Drawer Component */}
             <div
-                className={`fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform border-r-2  ${isOpen ? 'translate-x-0' : '-translate-x-full'} bg-white `}
-                aria-labelledby="drawer-navigation-label"
-            >
-                <h5 id="drawer-navigation-label" className="text-base font-semibold flex gap-6 text-gray-500 uppercase ">
-                    <p>Logo</p>
-                    <p>Mihiretu T.</p>
-                </h5>
+                className={`fixed top-0 left-0 z-40 w-64 h-screen p-3 overflow-y-auto transition-transform border-r-2  ${isOpen ? 'translate-x-0' : '-translate-x-full'} bg-white `}
+                aria-labelledby="drawer-navigation-label" >
+                <div id="drawer-navigation-label" className="text-base font-semibold flex align-middle items-center text-center gap-4 text-gray-500 ">
+                    <div className="flex items-center justify-center bg-[#F57920] rounded-full w-12 h-12">
+                        <div className="flex  items-center">
+                            <span className="text-xl font-bold text-white">M</span>
+                            <span className="text-xl font-bold text-white">T</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p className='text-xl text-black'>Mihiretu T.</p>
+                    </div>
+                </div>
                 <button
                     type="button"
                     onClick={toggleDrawer}
                     aria-controls="drawer-navigation"
                     className="text-gray-400 bg-transparent  hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center "
                 >
-                    <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <svg aria-hidden="true" className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path>
                     </svg>
-                    <span className="sr-only">Close menu</span>
+                    {/* <span className="sr-only">Close menu</span> */}
                 </button>
-                <hr className='text-black shadow-lg my-5' />
+                <hr className='text-black shadow-lg my-1' />
 
                 <div className=" overflow-y-auto mt-7">
-                    <ul className="space-y-2 font-medium">
+                    <ul className="space-y-2">
                         <li className='flex '>
                             <button
                                 onClick={() => handleContentChange('portifolio')}
-                                className={`flex items-center p-2 rounded-lg w-full text-left ${activeContent === 'portifolio' ? 'bg-[#F57920] text-white ' : 'text-gray-900  hover:bg-gray-100 '}`}
+                                className={`flex items-center py-2 px-4 rounded-lg w-full text-left ${activeContent === 'portifolio' ? 'bg-[#F57920] text-white ' : 'text-gray-900  hover:bg-gray-100 '}`}
                             >
                                 <p className='flex items-center  '>
                                     <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 16 16" >
@@ -76,7 +82,7 @@ const Dashboard = () => {
                         <li className='flex '>
                             <button
                                 onClick={() => handleContentChange('profile')}
-                                className={`flex items-center p-2 rounded-lg w-full text-left ${activeContent === 'profile' ? 'bg-[#F57920] text-white ' : 'text-gray-900  hover:bg-gray-100 '}`}
+                                className={`flex items-center py-2 px-4 rounded-lg w-full text-left ${activeContent === 'profile' ? 'bg-[#F57920] text-white ' : 'text-gray-900  hover:bg-gray-100 '}`}
                             >
                                 <p className='flex items-center  '>
                                     <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 32 32">
@@ -89,7 +95,7 @@ const Dashboard = () => {
                         <li className='flex'>
                             <button
                                 onClick={() => handleContentChange('service')}
-                                className={`flex items-center py-2 rounded-lg w-full text-left ${activeContent === 'service' ? 'bg-[#F57920] text-white ' : 'text-gray-900  hover:bg-gray-100 '}`}
+                                className={`flex items-center py-2 px-4 rounded-lg w-full text-left ${activeContent === 'service' ? 'bg-[#F57920] text-white ' : 'text-gray-900  hover:bg-gray-100 '}`}
                             >
                                 <p className='flex items-center  '>
                                     <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24">
@@ -102,61 +108,77 @@ const Dashboard = () => {
                         </li>
                         <li className='flex'>
                             <button
-                                onClick={() => handleContentChange('skill')}
-                                className={`flex items-center p-2 rounded-lg w-full text-left ${activeContent === 'skill' ? 'bg-[#F57920] text-white' : 'text-gray-900 hover:bg-gray-200 transition duration-200 ease-in-out'}`}
+                                onClick={() => handleContentChange('skills')}
+                                className={`flex items-center py-2 px-4 rounded-lg w-full text-left ${activeContent === 'skills' ? 'bg-[#F57920] text-white' : 'text-gray-900 hover:bg-gray-200 transition duration-200 ease-in-out'}`}
                             >
                                 <p>
                                     <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 512 512" >
-                                        <path fill={`${activeContent === 'skill' ? "white" : "black"}`} d="M119.1 25v.1c-25 3.2-47.1 32-47.1 68.8c0 20.4 7.1 38.4 17.5 50.9L99.7 157L84 159.9c-13.7 2.6-23.8 9.9-32.2 21.5c-8.5 11.5-14.9 27.5-19.4 45.8c-8.2 33.6-9.9 74.7-10.1 110.5h44l11.9 158.4h96.3L185 337.7h41.9c0-36.2-.3-77.8-7.8-111.7c-4-18.5-10.2-34.4-18.7-45.9c-8.6-11.4-19.2-18.7-34.5-21l-16-2.5L160 144c10-12.5 16.7-30.2 16.7-50.1c0-39.2-24.8-68.8-52.4-68.8c-2.9 0-4.7-.1-5.2-.1M440 33c-17.2 0-31 13.77-31 31s13.8 31 31 31s31-13.77 31-31s-13.8-31-31-31M311 55v48H208v18h103v158h-55v18h55v110H208v18h103v32h80.8c-.5-2.9-.8-5.9-.8-9s.3-6.1.8-9H329V297h62.8c-.5-2.9-.8-5.9-.8-9s.3-6.1.8-9H329V73h62.8c-.5-2.92-.8-5.93-.8-9s.3-6.08.8-9zm129 202c-17.2 0-31 13.8-31 31s13.8 31 31 31s31-13.8 31-31s-13.8-31-31-31m0 160c-17.2 0-31 13.8-31 31s13.8 31 31 31s31-13.8 31-31s-13.8-31-31-31"></path>
+                                        <path fill={`${activeContent === 'skills' ? "white" : "black"}`} d="M119.1 25v.1c-25 3.2-47.1 32-47.1 68.8c0 20.4 7.1 38.4 17.5 50.9L99.7 157L84 159.9c-13.7 2.6-23.8 9.9-32.2 21.5c-8.5 11.5-14.9 27.5-19.4 45.8c-8.2 33.6-9.9 74.7-10.1 110.5h44l11.9 158.4h96.3L185 337.7h41.9c0-36.2-.3-77.8-7.8-111.7c-4-18.5-10.2-34.4-18.7-45.9c-8.6-11.4-19.2-18.7-34.5-21l-16-2.5L160 144c10-12.5 16.7-30.2 16.7-50.1c0-39.2-24.8-68.8-52.4-68.8c-2.9 0-4.7-.1-5.2-.1M440 33c-17.2 0-31 13.77-31 31s13.8 31 31 31s31-13.77 31-31s-13.8-31-31-31M311 55v48H208v18h103v158h-55v18h55v110H208v18h103v32h80.8c-.5-2.9-.8-5.9-.8-9s.3-6.1.8-9H329V297h62.8c-.5-2.9-.8-5.9-.8-9s.3-6.1.8-9H329V73h62.8c-.5-2.92-.8-5.93-.8-9s.3-6.08.8-9zm129 202c-17.2 0-31 13.8-31 31s13.8 31 31 31s31-13.8 31-31s-13.8-31-31-31m0 160c-17.2 0-31 13.8-31 31s13.8 31 31 31s31-13.8 31-31s-13.8-31-31-31"></path>
                                     </svg>
                                 </p>
 
                                 <span className="flex-1 ms-3">Skill</span>
                                 <p onClick={skillDropDown}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24">
-                                        <path fill={`${activeContent === 'skill' ? "white" : "black"}`} fillRule="evenodd" d="M16.53 8.97a.75.75 0 0 1 0 1.06l-4 4a.75.75 0 0 1-1.06 0l-4-4a.75.75 0 1 1 1.06-1.06L12 12.44l3.47-3.47a.75.75 0 0 1 1.06 0" clipRule="evenodd"></path>
+                                        <path fill={`${activeContent === 'skills' ? "white" : "black"}`} fillRule="evenodd" d="M16.53 8.97a.75.75 0 0 1 0 1.06l-4 4a.75.75 0 0 1-1.06 0l-4-4a.75.75 0 1 1 1.06-1.06L12 12.44l3.47-3.47a.75.75 0 0 1 1.06 0" clipRule="evenodd"></path>
                                     </svg>
 
                                 </p>
                             </button>
                         </li>
                         {dropDownSkill && (
-                            <ul className='block ms-4 bg-white font-normal rounded-lg  px-2 mt-1'>
-                                <li className=' px-2 hover:bg-gray-100 transition duration-200 ease-in-out rounded-md' onClick={() => handleContentChange('skills')}>Skills</li>
-                                <li className='py-1 px-2 hover:bg-gray-100 transition duration-200 ease-in-out rounded-md' onClick={() => handleContentChange('skillCategory')}>Skill Category</li>
+                            <ul className='block  bg-[#f5f5f5] py-3 font-normal rounded-lg  px-2 '>
+                                <li className=' p-2 hover:bg-gray-200 transition duration-200 ease-in-out rounded-md text-[15px]' onClick={() => handleContentChange('skills')}>Skills</li>
+                                <hr className='text-black shadow-lg ' />
+                                <li className='p-2 hover:bg-gray-200 transition duration-200 ease-in-out rounded-md text-[15px]' onClick={() => handleContentChange('skillCategory')}>Skill Category</li>
                             </ul>
                         )}
                         <li className='flex'>
                             <button
-                                onClick={() => handleContentChange('project')}
-                                className={`flex items-center p-2 rounded-lg w-full text-left ${activeContent === 'project' ? 'bg-[#F57920] text-white' : 'text-gray-900 hover:bg-gray-200 transition duration-200 ease-in-out'}`}
+                                onClick={() => handleContentChange('projects')}
+                                className={`flex items-center py-2 px-4 rounded-lg w-full text-left ${activeContent === 'projects' ? 'bg-[#F57920] text-white' : 'text-gray-900 hover:bg-gray-200 transition duration-200 ease-in-out'}`}
                             >
                                 <p>
                                     <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 24 24">
-                                        <path fill={`${activeContent === 'project' ? "white" : "black"}`} d="M8.75 7a.75.75 0 0 0 0 1.5h7.5a.75.75 0 0 0 0-1.5zM7 11.75a.75.75 0 0 1 .75-.75h6.5a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1-.75-.75M9.75 15a.75.75 0 0 0 0 1.5h6.5a.75.75 0 0 0 0-1.5z"></path>
-                                        <path fill={`${activeContent === 'project' ? "white" : "black"}`} d="M2 3.75C2 2.784 2.784 2 3.75 2h16.5c.966 0 1.75.784 1.75 1.75v16.5A1.75 1.75 0 0 1 20.25 22H3.75A1.75 1.75 0 0 1 2 20.25Zm1.75-.25a.25.25 0 0 0-.25.25v16.5c0 .138.112.25.25.25h16.5a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25Z"></path>
+                                        <path fill={`${activeContent === 'projects' ? "white" : "black"}`} d="M8.75 7a.75.75 0 0 0 0 1.5h7.5a.75.75 0 0 0 0-1.5zM7 11.75a.75.75 0 0 1 .75-.75h6.5a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1-.75-.75M9.75 15a.75.75 0 0 0 0 1.5h6.5a.75.75 0 0 0 0-1.5z"></path>
+                                        <path fill={`${activeContent === 'projects' ? "white" : "black"}`} d="M2 3.75C2 2.784 2.784 2 3.75 2h16.5c.966 0 1.75.784 1.75 1.75v16.5A1.75 1.75 0 0 1 20.25 22H3.75A1.75 1.75 0 0 1 2 20.25Zm1.75-.25a.25.25 0 0 0-.25.25v16.5c0 .138.112.25.25.25h16.5a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25Z"></path>
                                     </svg>
                                 </p>
 
                                 <span className="flex-1 ms-3">Project</span>
                                 <p onClick={projectDropDown}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24">
-                                        <path fill={`${activeContent === 'project' ? "white" : "black"}`} fillRule="evenodd" d="M16.53 8.97a.75.75 0 0 1 0 1.06l-4 4a.75.75 0 0 1-1.06 0l-4-4a.75.75 0 1 1 1.06-1.06L12 12.44l3.47-3.47a.75.75 0 0 1 1.06 0" clipRule="evenodd"></path>
+                                        <path fill={`${activeContent === 'projects' ? "white" : "black"}`} fillRule="evenodd" d="M16.53 8.97a.75.75 0 0 1 0 1.06l-4 4a.75.75 0 0 1-1.06 0l-4-4a.75.75 0 1 1 1.06-1.06L12 12.44l3.47-3.47a.75.75 0 0 1 1.06 0" clipRule="evenodd"></path>
                                     </svg>
                                 </p>
                             </button>
                         </li>
                         {dropDownPro && (
-                            <ul className='block ms-4 bg-white font-normal rounded-lg  px-2 mt-1'>
-                                <li className=' px-2 hover:bg-gray-100 transition duration-200 ease-in-out rounded-md' onClick={() => handleContentChange('projects')}>Projects</li>
-                                <li className='py-1 px-2 hover:bg-gray-100 transition duration-200 ease-in-out rounded-md' onClick={() => handleContentChange('projectCategory')}>Project Category</li>
+                            <ul className='block bg-[#f5f5f5] py-3 font-normal rounded-lg  px-2'>
+                                <li className=' p-2 hover:bg-gray-200 transition duration-200 ease-in-out rounded-md text-[15px]' onClick={() => handleContentChange('projects')}>Projects</li>
+                                <hr className='text-black shadow-lg s' />
+                                <li className='p-2 hover:bg-gray-200 transition duration-200 ease-in-out rounded-md text-[15px]' onClick={() => handleContentChange('projectCategory')}>Project Category</li>
                             </ul>
                         )}
 
                         <li className='flex'>
                             <button
+                                onClick={() => handleContentChange('blog')}
+                                className={`flex items-center py-2 px-4 rounded-lg w-full text-left ${activeContent === 'blog' ? 'bg-[#F57920] text-white ' : 'text-gray-900  hover:bg-gray-100 '}`}
+                            >
+                                <p className='flex items-center  '>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 32 32" >
+                                        <path fill={`${activeContent === 'blog' ? "white" : "black"}`} d="M4 24h10v2H4zm0-6h10v2H4zm22-4H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h20a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2M6 6v6h20V6zm20 22h-6a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2m-6-8v6h6v-6z"></path></svg>
+                                </p>
+
+                                <span className="flex-1 ms-3 ">Blog</span>
+                            </button>
+                        </li>
+
+                        <li className='flex'>
+                            <button
                                 onClick={() => handleContentChange('signout')}
-                                className={`flex items-center p-2 rounded-lg w-full text-left ${activeContent === 'signout' ? 'bg-[#F57920] text-white ' : 'text-gray-900  hover:bg-gray-100 '}`}
+                                className={`flex items-center py-2 px-4 rounded-lg w-full text-left ${activeContent === 'signout' ? 'bg-[#F57920] text-white ' : 'text-gray-900  hover:bg-gray-100 '}`}
                             >
                                 <p>
                                     <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24" ><path fill={`${activeContent === 'signout' ? "white" : "black"}`} d="M17 2H7C5.3 2 4 3.3 4 5v6h8.6l-2.3-2.3c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l4 4c.4.4.4 1 0 1.4l-4 4c-.4.4-1 .4-1.4 0s-.4-1 0-1.4l2.3-2.3H4v6c0 1.7 1.3 3 3 3h10c1.7 0 3-1.3 3-3V5c0-1.7-1.3-3-3-3"></path></svg>
@@ -221,6 +243,11 @@ const Dashboard = () => {
                 {activeContent === 'projectCategory' && (
                     <div>
                         <ProjectCategoryTable />
+                    </div>
+                )}
+                {activeContent === 'blog' && (
+                    <div>
+                        <Blog />
                     </div>
                 )}
                 {activeContent === 'signout' && (
