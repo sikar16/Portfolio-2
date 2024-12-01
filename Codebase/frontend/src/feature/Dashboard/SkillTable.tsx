@@ -17,6 +17,7 @@ import {
 
 // Mock Data
 import { skilldata } from '../../demo/makedata';
+import { useGetAllskillQuery } from '../../service/skillApi';
 
 export type SkillCategory = {
     id: number;
@@ -24,6 +25,10 @@ export type SkillCategory = {
     description: string; // Add description property
     image: string; // Add image property
 };
+
+/**
+ * 
+ */
 
 const CustomToolbar = ({ table }) => {
     return (
@@ -41,6 +46,8 @@ const CustomToolbar = ({ table }) => {
 
 const SkillTable = () => {
     const [open, setOpen] = useState(false);
+
+    const { isError, isLoading, isSuccess, data } = useGetAllskillQuery()
 
     const handleClickOpen = () => {
         setOpen(true);

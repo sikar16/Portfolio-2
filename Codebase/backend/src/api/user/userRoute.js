@@ -1,10 +1,10 @@
 import express from "express"
 import userController from "./userController.js";
-import { isServiceProvider, isUser } from "../../middleware/auth.js";
+import { isAuth, isServiceProvider, isUser } from "../../middleware/auth.js";
 
 const userRoute=express.Router()
 userRoute.get("/:id",userController.getSingleUser),
-userRoute.get("/",userController.getAllUser),
+userRoute.get("/",[isAuth,isUser],userController.getAllUser),
 userRoute.post("/create",userController.createUser),
 userRoute.put("/updateUser/:id",userController.updateUser),
 userRoute.put("/updateUserInfo/:id",userController.updateUserInfo),

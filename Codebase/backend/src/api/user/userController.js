@@ -43,6 +43,7 @@ const userController={
         }
     },
     getAllUser:async (req,res,next)=>{
+      console.log(req.user)
         try {
            const users=await prisma.user.findMany({
             include:{
