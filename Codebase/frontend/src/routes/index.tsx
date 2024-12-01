@@ -17,5 +17,9 @@ export const router = createBrowserRouter(
                 path="/dashboard"
                 element={<Dashboard />}
             />
+            <Route
+                path="/try"
+                element={<Try />}
+            />
         </>
     ))

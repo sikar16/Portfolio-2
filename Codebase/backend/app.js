@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
     });
 });
 
-app.listen(PORT, HOST, (error) => {
+app.listen(PORT, "0.0.0.0", (error) => {
     if (error) {
         console.log(error);
     } else {
