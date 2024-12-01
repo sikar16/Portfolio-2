@@ -13,14 +13,13 @@ import {
     TextField,
 } from '@mui/material';
 
-// Mock Data
-import { data } from '../../demo/makedata.ts';
+import { useGetAllserviceQuery } from '../../service/serviceApi.tsx';
 
 export type Service = {
     id: number;
-    serviceName: string;
+    name: string;
     description: string;
-    serviceImage: string;
+    image: string;
 };
 
 const CustomToolbar = ({ table }) => {
@@ -40,6 +39,10 @@ const CustomToolbar = ({ table }) => {
 };
 
 export const ServiceTable = () => {
+    const { isError, isLoading, data, isSuccess } = useGetAllserviceQuery()
+
+    console.log(data)
+
     const columns = useMemo<MRT_ColumnDef<Service>[]>(
         () => [
             {
@@ -48,7 +51,7 @@ export const ServiceTable = () => {
                 size: 20,
             },
             {
-                accessorKey: 'serviceName',
+                accessorKey: 'name',
                 header: 'Service Name',
                 size: 150,
             },
@@ -58,7 +61,7 @@ export const ServiceTable = () => {
                 size: 300,
             },
             {
-                accessorKey: 'serviceImage',
+                accessorKey: 'image',
                 header: 'Service Image',
                 size: 100,
                 Cell: ({ cell }) => (
@@ -103,7 +106,7 @@ export const ServiceTable = () => {
 
     const table = useMaterialReactTable({
         columns,
-        data,
+        data: isLoading ? [] : data || [],
         enableRowActions: false,
         enableColumnFilterModes: true,
         enableColumnOrdering: true,

@@ -1,22 +1,27 @@
-import { configureStore } from '@reduxjs/toolkit'
-// Or from '@reduxjs/toolkit/query/react'
-import { setupListeners } from '@reduxjs/toolkit/query'
-import { skillCategoryApi } from '../service/skillCategory'
+import { configureStore } from '@reduxjs/toolkit';
+import { setupListeners } from '@reduxjs/toolkit/query';
+import { skillCategoryApi } from '../service/skillCategoryApi';
+import { projectCategoryApi } from '../service/projectCategoryApi';
+import { serviceApi } from '../service/serviceApi';
+import { skillApi } from '../service/skillApi';
 
 export const store = configureStore({
     reducer: {
-        // Add the generated reducer as a specific top-level slice
         [skillCategoryApi.reducerPath]: skillCategoryApi.reducer,
+        [projectCategoryApi.reducerPath]: projectCategoryApi.reducer,
+        [serviceApi.reducerPath]: serviceApi.reducer,
+        [skillApi.reducerPath]: serviceApi.reducer,
     },
-    // Adding the api middleware enables caching, invalidation, polling,
-    // and other useful features of `rtk-query`.
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(skillCategoryApi.middleware),
-})
+        getDefaultMiddleware().concat(
+            skillCategoryApi.middleware,
+            projectCategoryApi.middleware,
+            serviceApi.middleware,
+            skillApi.middleware
+        ),
+});
 
-// optional, but required for refetchOnFocus/refetchOnReconnect behaviors
-// see `setupListeners` docs - takes an optional callback as the 2nd arg for customization
-setupListeners(store.dispatch)
+setupListeners(store.dispatch);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

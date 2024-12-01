@@ -33,31 +33,36 @@ export const skillCategorydata = [
 export const skilldata = [
     {
         id: 1,
-        skillCategory: 'Web Development',
+        skillCategory: 'Full stack',
+        skillName: 'Web Development',
         description: 'Building and maintaining websites.',
         image: 'https://via.placeholder.com/50', // Placeholder image URL
     },
     {
         id: 2,
-        skillCategory: 'Graphic Design',
+        skillCategory: 'Data Science',
+        skillName: 'Web Development',
         description: 'Creating visual content to communicate messages.',
         image: 'https://via.placeholder.com/50',
     },
     {
         id: 3,
         skillCategory: 'Data Science',
+        skillName: 'Web Development',
         description: 'Analyzing and interpreting complex data.',
         image: 'https://via.placeholder.com/50',
     },
     {
         id: 4,
-        skillCategory: 'Digital Marketing',
+        skillCategory: 'Data Science',
+        skillName: 'Web Development',
         description: 'Promoting products or brands via digital channels.',
         image: 'https://via.placeholder.com/50',
     },
     {
         id: 5,
-        skillCategory: 'Mobile Development',
+        skillCategory: 'Data Science',
+        skillName: 'Web Development',
         description: 'Developing applications for mobile devices.',
         image: 'https://via.placeholder.com/50',
     },

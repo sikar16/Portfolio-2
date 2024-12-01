@@ -15,15 +15,14 @@ import {
     TextField,
 } from '@mui/material';
 
-// Mock Data
-import { projectCategoryData } from '../../demo/makedata';
+import { useGetAllprojectQuery } from '../../service/projectCategoryApi';
 
 export type ProjectCategory = {
     id: number;
     projectCategoryName: string;
 };
 
-const CustomToolbar = ({ table: any }) => {
+const CustomToolbar = ({ table }) => {
     return (
         <Box display="flex" alignItems="center" justifyContent="space-between" p={1}>
             <TextField
@@ -40,6 +39,7 @@ const CustomToolbar = ({ table: any }) => {
 
 const ProjectCategoryTable = () => {
     const [open, setOpen] = useState(false);
+    const { isError, isLoading, data, isSuccess } = useGetAllprojectQuery()
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -57,7 +57,7 @@ const ProjectCategoryTable = () => {
                 size: 20,
             },
             {
-                accessorKey: 'projectCategoryName',
+                accessorKey: 'name',
                 header: 'Project Category Name',
                 size: 80,
             },
@@ -92,7 +92,7 @@ const ProjectCategoryTable = () => {
 
     const table = useMaterialReactTable({
         columns,
-        data: projectCategoryData,
+        data: isLoading ? [] : data || [],
         enableRowActions: false,
         enableColumnFilterModes: true,
         enableColumnOrdering: true,
@@ -118,6 +118,13 @@ const ProjectCategoryTable = () => {
             variant: 'outlined',
         },
     });
+    if (isLoading) {
+        return <div>Loding</div>;
+    }
+
+    if (isError) {
+        return <div>Error loading data.</div>;
+    }
 
     return (
         <>

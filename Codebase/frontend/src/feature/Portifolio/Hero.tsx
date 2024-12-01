@@ -6,10 +6,10 @@ function Hero() {
                     <div className="mt-3">
                         <button className="border border-black px-2 lg:px-4 py-[5px] rounded-3xl">Hello!</button>
                     </div>
-                    <p className="text-[38px] font-semibold">I’m Mihiretu, <span className="block">Full stack and Mobile app developer </span></p>
+                    <p className="text-[38px] font-semibold">I’m Abebe , <span className="block">Full stack and Mobile app developer </span></p>
                 </div>
-                <div className="relative  p-8 rounded-lg flex md:flex justify-around items-center  mt-6  xl:mx-[100px]">
-                    <div className="absolute  top-52 left-0 transform ml-4 max-w-xs hidden md:block ">
+                <div className="relative  p-8 rounded-lg flex md:flex justify-around items-center  mt-1  xl:mx-[100px]">
+                    <div className="lg:absolute  lg:top-52 left-0 transform ml-4 max-w-xs  hidden md:block ">
                         <blockquote className="text-gray-600 text-lg">
                             <p className=" text-gray-600 text-lg italic">
                                 <span>
@@ -19,7 +19,7 @@ function Hero() {
                         </blockquote>
                     </div>
                     <div className="relative z-10 flex flex-col items-center ">
-                        <div className="w-[600px] h-[600px] sm:w-[500px] sm:h-[500px] xl:w-[600px] xl:h-[600px] bg-[#FEB273] rounded-full  flex items-center justify-center overflow-hidden">
+                        <div className="w-[300px] h-[300px] md:w-[500px] md:h-[500px] sm:w-[400px] sm:h-[400px] xl:w-[500px] xl:h-[500px] bg-[#FEB273] rounded-full  flex items-center justify-center overflow-hidden">
                             <img src="image" alt="image" className="w-[115%] h-[115%] object-cover absolute bottom-10 rounded-l-lg left-1/2 transform -translate-x-1/2 " />
                         </div>
                         <div className="absolute bottom-40 left-1/2 transform -translate-x-1/2 translate-y-1/2 flex font-semibold text-center items-center">
@@ -81,7 +81,7 @@ export default Hero
 //                     <div className="mt-3">
 //                         <button className="border border-black px-4 py-2 rounded-full hover:bg-gray-200 transition">Hello!</button>
 //                     </div>
-//                     <p className="text-3xl md:text-4xl font-semibold">I’m Mihiretu, <span className="block">Full Stack and Mobile App Developer</span></p>
+//                     <p className="text-3xl md:text-4xl font-semibold">I’m Abebe , <span className="block">Full Stack and Mobile App Developer</span></p>
 //                 </div>
 
 //                 <div className="relative p-6 md:p-8 rounded-lg flex flex-col md:flex-row justify-around items-center mt-6">

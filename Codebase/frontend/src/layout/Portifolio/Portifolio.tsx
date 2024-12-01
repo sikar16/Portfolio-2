@@ -1,6 +1,7 @@
 import Header from "../../component/Header"
 import Aboutme from "../../feature/Portifolio/Aboutme"
 import Hero from "../../feature/Portifolio/Hero"
+import Service from "../../feature/Portifolio/Service"
 
 function Portifolio() {
     return (
@@ -8,6 +9,7 @@ function Portifolio() {
             <Header />
             <Hero />
             <Aboutme />
+            <Service />
         </>
     )
 }

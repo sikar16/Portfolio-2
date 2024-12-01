@@ -12,7 +12,7 @@ app.use(urlencoded({
 app.use(cors({
     origin: true,
     methods: ["GET", "POST", "DELETE", "PUT"],
-    allowedHeaders: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
 }));
 

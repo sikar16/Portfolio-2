@@ -13,14 +13,15 @@ import {
     ListItemIcon,
     MenuItem,
     TextField,
+    CircularProgress,
 } from '@mui/material';
 
 // Mock Data
-import { skillCategorydata } from '../../demo/makedata';
+import { useGetAllSkillCategoryQuery } from '../../service/skillCategoryApi';
 
 export type SkillCategory = {
     id: number;
-    skillCategory: string;
+    name: string;
 };
 
 const CustomToolbar = ({ table }) => {
@@ -39,6 +40,7 @@ const CustomToolbar = ({ table }) => {
 
 const SkillCategoryTable = () => {
     const [open, setOpen] = useState(false);
+    const { isError, isLoading, data } = useGetAllSkillCategoryQuery();
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -56,7 +58,7 @@ const SkillCategoryTable = () => {
                 size: 20,
             },
             {
-                accessorKey: 'skillCategory',
+                accessorKey: 'name',
                 header: 'Skill Category',
                 size: 80,
             },
@@ -91,7 +93,7 @@ const SkillCategoryTable = () => {
 
     const table = useMaterialReactTable({
         columns,
-        data: skillCategorydata,
+        data: isLoading ? [] : data || [],
         enableRowActions: false,
         enableColumnFilterModes: true,
         enableColumnOrdering: true,
@@ -118,14 +120,23 @@ const SkillCategoryTable = () => {
         },
     });
 
+    if (isLoading) {
+        return <CircularProgress />;
+    }
+
+    if (isError) {
+        return <div>Error loading data.</div>;
+    }
+
     return (
         <>
             <div className="flex justify-between my-4 items-center">
                 <p className="ms-4 text-2xl font-semibold text-gray-800">Skill Category</p>
-                <div className="">
+                <div>
                     <button className="bg-[#F57920] text-white px-5 gap-1 py-2 rounded-lg flex items-center text-center align-middle" onClick={handleClickOpen}>
-                        <span className="items-center"><svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" ><path fill="white" d="M12.75 7a.75.75 0 0 0-1.5 0v4.25H7a.75.75 0 0 0 0 1.5h4.25V17a.75.75 0 0 0 1.5 0v-4.25H17a.75.75 0 0 0 0-1.5h-4.25z"></path></svg></span>
-                        <span>Add Skill Category</span> </button>
+                        <span className="items-center"><svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24"><path fill="white" d="M12.75 7a.75.75 0 0 0-1.5 0v4.25H7a.75.75 0 0 0 0 1.5h4.25V17a.75.75 0 0 0 1.5 0v-4.25H17a.75.75 0 0 0 0-1.5h-4.25z"></path></svg></span>
+                        <span>Add Skill Category</span>
+                    </button>
                 </div>
             </div>
             <MaterialReactTable table={table} />
@@ -133,16 +144,15 @@ const SkillCategoryTable = () => {
                 <DialogTitle className="text-lg font-semibold text-gray-700">Add Skill Category</DialogTitle>
                 <hr className='text-black shadow-lg my-2' />
                 <div className="p-4">
-                    <div className="mb-4 flex justify-between gap-2 ">
+                    <div className="mb-4 flex justify-between gap-2">
                         <label htmlFor="categoryName" className="block text-sm font-medium w-full text-gray-600">Category Name</label>
                         <input
                             type="text"
                             id="categoryName"
-                            className="mt-1 w-screen text-sm border outline-none border-gray-300 rounded-md shadow-sm  block px-3 py-2 bg-white"
+                            className="mt-1 w-screen text-sm border outline-none border-gray-300 rounded-md shadow-sm block px-3 py-2 bg-white"
                             placeholder="Enter category name"
                         />
                     </div>
-
                 </div>
                 <DialogActions className="p-4">
                     <Button onClick={handleClickClose} color="secondary">Cancel</Button>

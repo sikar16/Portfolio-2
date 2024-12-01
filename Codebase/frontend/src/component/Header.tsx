@@ -1,8 +1,9 @@
-import { FaMoon, FaSun, FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 import { MdNightlight, MdLightMode, MdBrightnessAuto } from 'react-icons/md';
 import { useThemeData } from '../context/them_context';
 import IconContainer from './icon/Icon_container';
+import { Link } from 'react-router-dom';
 
 function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -51,7 +52,6 @@ function Header() {
                 : 'lg:w-full lg:mx-0 py-4'
                 }`}
         >
-            {/* Logo */}
             <div className="flex items-center gap-3">
                 <div className="bg-[#FF7D00] w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">
                     MT
@@ -59,7 +59,6 @@ function Header() {
                 <span className="font-bold text-lg">Mihiretu T.</span>
             </div>
 
-            {/* Desktop Navigation */}
             <nav className="hidden md:block">
                 <ul className="flex gap-3">
                     <li className="relative group">
@@ -139,7 +138,6 @@ function Header() {
                 </ul>
             </nav>
 
-            {/* Dark/Light Mode Toggle and Mobile Menu Icon */}
             <div className="flex items-center gap-4">
                 <IconContainer
                     handler={toggleThemeData}
@@ -147,8 +145,15 @@ function Header() {
                     iconsClassName="my-custom-icon-class"
                     children={null}
                 />
+                <div>
+                    <Link to="/dashboard">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className='hover:text-[#FF7D00] cursor-pointer'>
+                            <path fill="currentColor" d="M9 21H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v14c0 1.1-.9 2-2 2m6 0h4c1.1 0 2-.9 2-2v-5c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v5c0 1.1.9 2 2 2m6-13V5c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v3c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2" />
+                        </svg>
+                    </Link>
+                </div>
 
-                {/* Mobile Menu Button */}
+
                 <button
                     onClick={toggleMobileMenu}
                     className="text-[20px] md:hidden focus:outline-none hover:text-[#FF7D00] transition-colors duration-300"
@@ -158,7 +163,8 @@ function Header() {
                 </button>
             </div>
 
-            {/* Mobile Menu */}
+
+
             {isMobileMenuOpen && (
                 <div className="fixed top-16 left-0 right-0 bg-gray-800 p-4 rounded-lg shadow-lg md:hidden z-50">
                     <ul className="flex flex-col gap-4">
