@@ -4,6 +4,9 @@ cloudlinux-selector install-modules --json --interpreter nodejs --user huludeig 
 
 source /home/huludeig/nodevenv/portfolio.huludelala.com/codebase/backend/20/bin/activate && cd /home/huludeig/portfolio.huludelala.com
 
+
+source /home/huludeig/nodevenv/portfolio.huludelala.com/codebase/backend/20/bin/activate && cd /home/huludeig/portfolio.huludelala.com/codebase/backend
+
 /usr/bin/flock -n /tmp/mylockenv.lock ${HOME}/nodevenv/portfolio.huludelala.com/codebase/backend/20/bin/node ${HOME} portfolio.huludelala.com/codebase/backend/app.js>/dev/null 2>&1
 
 ps aux

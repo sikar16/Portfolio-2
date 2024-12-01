@@ -8,7 +8,7 @@ getAllservice:async (req,res,next)=>{
         }) 
         return res.status(200).json({
          success: true,
-         message: "fetching all service",
+         message: "fetching all services",
          data: services,
        });
      } catch (error) {
