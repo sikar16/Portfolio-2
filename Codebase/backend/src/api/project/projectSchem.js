@@ -5,8 +5,7 @@ const projectSchema = {
     name: z.string().min(4,{message:"name of project is required"}),
     description: z.string().optional(),
     demoLink: z.string().optional(),
-    tecnology: z.string(),
-    userId: z.number(),
+    technology: z.string(),
     projectCategoryId: z.number(),
     projectImage: z.array(z.object({ 
       image: z.string(), 
@@ -16,7 +15,7 @@ const projectSchema = {
     name: z.string().min(4,{message:"name of project is required"}),
     description: z.string().optional(),
     demoLink: z.string().optional(),
-    tecnology: z.string(),
+    technology: z.string(),
     projectImage: z.array(z.object({ 
       image: z.string(), 
     })),
