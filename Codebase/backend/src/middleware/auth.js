@@ -3,7 +3,10 @@ import { SECRET } from "../config/secret.js";
 import prisma from "../config/prisma.js";
 
 export const isAuth = async (req, res, next) => {
+  
   const authHeader = req.headers.authorization;
+  console.log("Authorization Header:", authHeader); 
+
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(403).json({
       success: false,
@@ -12,7 +15,7 @@ export const isAuth = async (req, res, next) => {
   }
   
   const token = authHeader.split(" ")[1]; 
-console.log(token)
+// console.log(token)
   if (!token) {
     return res.status(401).json({
       success: false,

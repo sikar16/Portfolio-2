@@ -2,22 +2,66 @@ import prisma from "../../config/prisma.js";
 import projectCategorySchem from "./projectCategorySchem.js";
 
 const projectCategoryController={
-    getAllprojectCategory:async (req,res,next)=>{
-        try {
-            const projectCategory=await prisma.projectCategory.findMany({
-            }) 
-            return res.status(200).json({
-             success: true,
-             message: "fetching all project category",
-             data: projectCategory,
-           });
-         } catch (error) {
-             return res.status(500).json({
-                 success: false,
-                 message: `${error}`,
-               });
-         }
-    },
+    // getAllprojectCategory:async (req,res,next)=>{
+    //     try {
+    //         const projectCategory=await prisma.projectCategory.findMany({
+    //           where:{
+    //             id:+req.user.id
+    //           }
+    //         }) 
+    //         return res.status(200).json({
+    //          success: true,
+    //          message: "fetching all project category",
+    //          data: projectCategory,
+    //        });
+    //      } catch (error) {
+    //          return res.status(500).json({
+    //              success: false,
+    //              message: `${error}`,
+    //            });
+    //      }
+    // },
+    getAllprojectCategory: async (req, res, next) => {
+      try {
+          const projectCategories = await prisma.projectCategory.findMany({
+              where: {
+                  userId: req.user.id
+              }
+          });
+  
+          return res.status(200).json({
+              success: true,
+              message: "Fetching all project categories.",
+              data: projectCategories, 
+          });
+      } catch (error) {
+          return res.status(500).json({
+              success: false,
+              message: error.message,
+          });
+      }
+  },
+
+  //   getMyprojectCategory: async (req, res, next) => {
+  //     try {
+  //         const projectCategories = await prisma.projectCategory.findMany({
+  //             where: {
+  //                 userId: req.user.id 
+  //               }
+  //         });
+  
+  //         return res.status(200).json({
+  //             success: true,
+  //             message: "Fetching all project categories r",
+  //             data: projectCategories, 
+  //         });
+  //     } catch (error) {
+  //         return res.status(500).json({
+  //             success: false,
+  //             message: error.message, 
+  //         });
+  //     }
+  // },
     getSingleprojectCategory:async (req,res,next)=>{
       try {
         const projectCategoryId=parseInt(req.params.id,10);
@@ -59,7 +103,7 @@ const projectCategoryController={
         const isprojectCategoryExist = await prisma.projectCategory.findFirst({
           where: {
             name: data.name,
-            userId:data.user
+            userId:+ req.user.id
           },
         });
   
@@ -72,7 +116,7 @@ const projectCategoryController={
           const newprojectCategory = await prisma.projectCategory.create({
           data: {
             name: data.name,
-            userId: data.user,
+            userId: +req.user.id,
           },
         });
   

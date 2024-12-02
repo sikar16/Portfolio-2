@@ -42,6 +42,8 @@ const SkillCategoryTable = () => {
     const [open, setOpen] = useState(false);
     const { isError, isLoading, data } = useGetAllSkillCategoryQuery();
 
+    console.log(data)
+
     const handleClickOpen = () => {
         setOpen(true);
     };
