@@ -62,40 +62,43 @@ const projectCategoryController={
   //         });
   //     }
   // },
-    getSingleprojectCategory:async (req,res,next)=>{
-      try {
-        const projectCategoryId=parseInt(req.params.id,10);
+  getSingleprojectCategory: async (req, res, next) => {
+    try {
+        const projectCategoryId = parseInt(req.params.id, 10);
 
         if (isNaN(projectCategoryId)) {
-        return res.status(400).json({
-          success: false,
-          message: "invalid project category id",
-        });
-      }
-
-      const projectCategory=await prisma.projectCategory.findFirst({
-        where:{
-          id:projectCategoryId
+            return res.status(400).json({
+                success: false,
+                message: "Invalid project category ID",
+            });
         }
-      })
-      if (!projectCategory) {
-        return res.status(404).json({
-          success: false,
-          message: "project Category not found",
+
+        const projectCategory = await prisma.projectCategory.findFirst({
+            where: {
+                id: projectCategoryId,
+                userId: req.user.id, 
+            },
         });
-      }
-    
-      return res.status(200).json({
-        success: true,
-        data: projectCategory,
-      });
-      } catch (error) {
+
+        if (!projectCategory) {
+            return res.status(404).json({
+                success: false,
+                message: "Project category not found or you do not have permission to view it",
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: projectCategory,
+        });
+    } catch (error) {
+        console.error("Error fetching project category:", error); 
         return res.status(500).json({
-          success: false,
-          message: `${error}`,
+            success: false,
+            message: `Error - ${error.message}`,
         });
-      }
-    },
+    }
+},
     createprojectCategory: async (req, res, next) => {
       try {
         const data = projectCategorySchem.create.parse(req.body);
@@ -133,84 +136,90 @@ const projectCategoryController={
         });
       }
     },
-    updateprojectCategory:async (req,res,next)=>{
+    updateprojectCategory: async (req, res, next) => {
       try {
+          const projectCategoryId = parseInt(req.params.id, 10);
+          if (isNaN(projectCategoryId)) {
+              return res.status(400).json({
+                  success: false,
+                  message: "Invalid project category ID",
+              });
+          }
+  
+          const data = projectCategorySchem.update.parse(req.body);
+  
+          const projectCategory = await prisma.projectCategory.findFirst({
+              where: {
+                  id: projectCategoryId,
+                  userId: req.user.id,
+              },
+          });
+  
+          if (!projectCategory) {
+              return res.status(404).json({
+                  success: false,
+                  message: "Project category not found or you do not have permission to update it",
+              });
+          }
+  
+          const updatedProjectCategory = await prisma.projectCategory.update({
+              where: { id: projectCategoryId },
+              data: {
+                  name: data.name,
+              },
+          });
+  
+          return res.status(200).json({
+              success: true,
+              message: "Project category updated successfully",
+              data: updatedProjectCategory,
+          });
+      } catch (error) {
+          console.error("Error updating project category:", error);
+          return res.status(500).json({
+              success: false,
+              message: `Error - ${error.message}`,
+          });
+      }
+  },
+  deleteprojectCategory: async (req, res, next) => {
+    try {
         const projectCategoryId = parseInt(req.params.id, 10);
         if (isNaN(projectCategoryId)) {
             return res.status(400).json({
-              success: false,
-              message: "Invalid project category ID",
+                success: false,
+                message: "Invalid project category ID",
             });
-          }
-          const data = projectCategorySchem.update.parse(req.body);
-          const projectCategory = await prisma.projectCategory.findFirst({
-            where: { id: projectCategoryId },
-          });
-
-          if (!projectCategory) {
-            return res.status(404).json({
-              success: false,
-              message: "project category not found",
-            });
-          }
-          const updateprojectCategory=await prisma.projectCategory.update({
-            where: { id: projectCategoryId },
-            data: {
-                name: data.name,
-            }
-          })
-          return res.status(200).json({
-            success: true,
-            message: "project category updated successfully",
-            data: updateprojectCategory,
-          });
-      } catch (error) {
-        return res.status(500).json({
-          success: false,
-          message: `${error}`,
-      }); 
-      }
-    },
-    deleteprojectCategory: async (req, res, next) => {
-      try {
-        const projectCategoryId = parseInt(req.params.id, 10);
-                if (isNaN(projectCategoryId)) {
-          return res.status(400).json({
-            success: false,
-            message: "Invalid project category ID",
-          });
         }
-        
-        // Check if the project category exists
         const projectCategory = await prisma.projectCategory.findUnique({
-          where: { id: projectCategoryId },
+            where: {
+                id: projectCategoryId,
+                userId: req.user.id,
+            },
         });
-    
+
         if (!projectCategory) {
-          return res.status(404).json({
-            success: false,
-            message: "project category not found",
-          });
+            return res.status(404).json({
+                success: false,
+                message: "Project category not found or you do not have permission to delete it",
+            });
         }
-    
-        // Delete the project category
+
         await prisma.projectCategory.delete({
-          where: { id: projectCategoryId },
+            where: { id: projectCategoryId },
         });
-    
-        // Respond with success
         return res.status(200).json({
-          success: true,
-          message: "project category deleted successfully",
+            success: true,
+            message: "Project category deleted successfully",
         });
-      } catch (error) {
-        console.error("Error deleting project category:", error); 
+    } catch (error) {
+        console.error("Error deleting project category:", error); // Log the error for debugging
         return res.status(500).json({
-          success: false,
-          message: error.message ,
+            success: false,
+            message: `Error - ${error.message}`,
         });
-      }
-    },
+    }
+},
 }
 
 
