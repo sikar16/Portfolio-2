@@ -2,63 +2,69 @@ import prisma from "../../config/prisma.js";
 import blogSchema from "./blogSchem.js";
 
 const blogController={
-    getAllBlog:async (req,res)=>{
-        try {
-            const blog=await prisma.blog.findMany({
-            }) 
-            return res.status(200).json({
-             success: true,
-             message: "fetching all blog",
-             data: blog,
-           });
-         } catch (error) {
-             return res.status(500).json({
-                 success: false,
-                 message: `${error}`,
-               });
-         } 
-    },
-    getSingleBlog:async (req,res)=>{
-        try {
-            const blogId=parseInt(req.params.id,10);
-    
-            if (isNaN(blogId)) {
-            return res.status(400).json({
-              success: false,
-              message: "invalid blog id",
-            });
-          }
-    
-          const blog=await prisma.blog.findFirst({
-            where:{
-              id:+blogId
-            }
-          })
-          if (!blog) {
-            return res.status(404).json({
-              success: false,
-              message: "blog not found",
-            });
-          }
-        
-          return res.status(200).json({
-            success: true,
-            data: blog,
+    getAllBlog: async (req, res) => {
+      try {
+          const blogs = await prisma.blog.findMany({
+              where: {
+                  userId: +req.user.id 
+              }
           });
-          } catch (error) {
-            return res.status(500).json({
+
+          return res.status(200).json({
+              success: true,
+              message: "Fetching all blogs for the user",
+              data: blogs,
+          });
+      } catch (error) {
+          return res.status(500).json({
               success: false,
-              message: `${error}`,
-            });
+              message: `Error fetching blogs: ${error.message}`,
+          });
+      } 
+    },
+    getSingleBlog: async (req, res) => {
+      try {
+          const blogId = parseInt(req.params.id, 10);
+
+          if (isNaN(blogId)) {
+              return res.status(400).json({
+                  success: false,
+                  message: "Invalid blog ID",
+              });
           }
+
+          const blog = await prisma.blog.findFirst({
+              where: {
+                  id: blogId,
+                  userId: req.user.id 
+              }
+          });
+
+          if (!blog) {
+              return res.status(404).json({
+                  success: false,
+                  message: "Blog not found or you do not have permission to view it",
+              });
+          }
+
+          return res.status(200).json({
+              success: true,
+              data: blog,
+          });
+      } catch (error) {
+          return res.status(500).json({
+              success: false,
+              message: `Error fetching blog: ${error.message}`, // Improved error message
+          });
+      }
     },
     createBlog: async (req, res) => {
         try {
           const data = blogSchema.create.parse(req.body);
-                const isBlogExist = await prisma.blog.findFirst({ 
+          const isBlogExist = await prisma.blog.findFirst({ 
             where: {
               content: data.content,
-              userId:data.userId
+              userId:req.user.id
             },
           });
       
@@ -73,7 +79,7 @@ const blogController={
             data: {
               title: data.title,
               content: data.content,
-              userId: data.userId,
+              userId: req.user.id,
               blogImages: {
                 create: data.blogImage.map((img) => ({
                   imageUrl: img.imageUrl,
@@ -93,7 +99,7 @@ const blogController={
             message: `Error - ${error.message}`,
           });
         }
-      },
+    },
     updateBlog:async (req,res)=>{
       try {
         const blogId = parseInt(req.params.id, 10);
@@ -106,8 +112,8 @@ const blogController={
         const data = blogSchema.update.parse(req.body);
         const isblogExist = await prisma.blog.findFirst({
           where: {
-            id:data.blogId
-            
+            id:data.blogId,
+            userId: req.user.id
           },
         });
     
@@ -144,54 +150,103 @@ const blogController={
         });
       }
     },
+    // deleteBlog: async (req, res) => {
+    //   try {
+    //     const blogId = parseInt(req.params.id, 10);
+        
+    //     if (isNaN(blogId)) {
+    //       return res.status(400).json({
+    //         success: false,
+    //         message: "Invalid blog ID",
+    //       });
+    //     }
+    
+    //     const blog = await prisma.blog.findFirst({
+    //       where: {
+    //         id: blogId,
+    //         userId: req.user.id 
+    //       },
+    //     });
+    
+    //     if (!blog) {
+    //       return res.status(404).json({
+    //         success: false,
+    //         message: "Blog not found",
+    //       });
+    //     }
+    
+    //     await prisma.blogImage.deleteMany({
+    //       where: {
+    //         blogId: blogId, 
+    //       },
+    //     });
+    
+    //   const deleteblog=  await prisma.blog.delete({
+    //       where: {
+    //         id: blogId,
+    //       },
+    //     });
+    //     return res.status(200).json({
+    //       success: true,
+    //       message: "blog delete successfully",
+    //       data: deleteblog,
+    //     });
+    //   } catch (error) {
+    //     console.error("Error deleting blog:", error);
+    //     return res.status(500).json({
+    //       success: false,
+    //       message: "Error - " + error.message,
+    //     });
+    //   }
+    // },
+
     deleteBlog: async (req, res) => {
       try {
-        const blogId = parseInt(req.params.id, 10);
-        
-        if (isNaN(blogId)) {
-          return res.status(400).json({
-            success: false,
-            message: "Invalid blog ID",
+          const blogId = parseInt(req.params.id, 10);
+          
+          if (isNaN(blogId)) {
+              return res.status(400).json({
+                  success: false,
+                  message: "Invalid blog ID",
+              });
+          }
+            const blog = await prisma.blog.findFirst({
+              where: {
+                  id: blogId,
+                  userId: req.user.id 
+              },
           });
-        }
-    
-        const blog = await prisma.blog.findFirst({
-          where: {
-            id: blogId,
-          },
-        });
-    
-        if (!blog) {
-          return res.status(404).json({
-            success: false,
-            message: "Blog not found",
+  
+          if (!blog) {
+              return res.status(404).json({
+                  success: false,
+                  message: "Blog not found or you do not have permission to delete it",
+              });
+          }
+            await prisma.blogImage.deleteMany({
+              where: {
+                  blogId: blogId, 
+              },
           });
-        }
-    
-        await prisma.blogImage.deleteMany({
-          where: {
-            blogId: blogId, 
-          },
-        });
-    
-      const deleteblog=  await prisma.blog.delete({
-          where: {
-            id: blogId,
-          },
-        });
-        return res.status(200).json({
-          success: true,
-          message: "blog delete successfully",
-          data: deleteblog,
-        });
+            const deletedBlog = await prisma.blog.delete({
+              where: {
+                  id: blogId,
+              },
+          });
+  
+          return res.status(200).json({
+              success: true,
+              message: "Blog deleted successfully",
+              data: deletedBlog,
+          });
       } catch (error) {
-        console.error("Error deleting blog:", error);
-        return res.status(500).json({
-          success: false,
-          message: "Error - " + error.message,
-        });
+          console.error("Error deleting blog:", error);
+          return res.status(500).json({
+              success: false,
+              message: "Error - " + error.message,
+          });
       }
-    },
+  },
 }
 
 export default blogController

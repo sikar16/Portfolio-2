@@ -5,7 +5,6 @@ const blogSchema ={
     create:z.object({
         title: z.string(),
         content: z.string(),
-        userId: z.number(),
         blogImage:z.array(z.object({
             imageUrl: z.string(),
         }))
