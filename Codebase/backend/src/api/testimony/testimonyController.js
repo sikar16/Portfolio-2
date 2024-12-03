@@ -104,8 +104,7 @@ createTestimony: async (req, res, next) => {
         });
     }
 },
-
-updatetestimony: async (req, res, next) => {
+updateTestimony: async (req, res, next) => {
     try {
         const testimonyId = parseInt(req.params.id, 10);
         if (isNaN(testimonyId)) {
@@ -116,21 +115,23 @@ updatetestimony: async (req, res, next) => {
         }
 
         const data = testimonySchem.update.parse(req.body);
+
         const testimony = await prisma.testimonial.findFirst({
-            where: { id: +testimonyId 
-                
+            where: {
+                id: testimonyId,       
+                userId: req.user.id,
             },
         });
 
         if (!testimony) {
             return res.status(404).json({
                 success: false,
-                message: "Testimony not found",
+                message: "Testimony not found or you do not have permission to update it",
             });
         }
 
         const updatedTestimony = await prisma.testimonial.update({
-            where: { id: +testimonyId },
+            where: { id: testimonyId },
             data: {
                 feedback: data.feedback,
                 reviewerFullName: data.reviewerFullName,
@@ -145,45 +146,7 @@ updatetestimony: async (req, res, next) => {
             data: updatedTestimony,
         });
     } catch (error) {
-        console.error("Error:", error);
-        return res.status(500).json({
-            success: false,
-            message: error,
-        });
-    }
-},
-deletetestimony: async (req, res, next) => {
-    try {
-        const testimonyId = parseInt(req.params.id, 10);
-        
-        if (isNaN(testimonyId)) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid testimony ID",
-            });
-        }
-        
-        const testimony = await prisma.testimonial.findUnique({
-            where: { id: +testimonyId },
-        });
-
-        if (!testimony) {
-            return res.status(404).json({
-                success: false,
-                message: "Testimony not found",
-            });
-        }
-    
-        await prisma.testimonial.delete({
-            where: { id: +testimonyId },
-        });
-    
-        return res.status(200).json({
-            success: true,
-            message: "Testimony deleted successfully",
-        });
-    } catch (error) {
-        console.error("Error deleting testimony:", error);
+        console.error("Error updating testimony:", error); 
         return res.status(500).json({
             success: false,
             message: error.message || "An internal server error occurred",
