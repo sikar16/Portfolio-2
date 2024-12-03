@@ -6,7 +6,6 @@ const serviceSchem={
         name:z.string(),
         image:z.string(),
         description:z.string(),
-        user:z.number()
     }),
     update:z.object({
         name:z.string(),

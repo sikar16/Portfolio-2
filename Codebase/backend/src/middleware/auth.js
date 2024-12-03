@@ -5,7 +5,7 @@ import prisma from "../config/prisma.js";
 export const isAuth = async (req, res, next) => {
   
   const authHeader = req.headers.authorization;
-  console.log("Authorization Header:", authHeader); 
+  // console.log("Authorization Header:", authHeader); 
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(403).json({

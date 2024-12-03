@@ -6,7 +6,6 @@ const skillSchema = {
         description: z.string(),
         image: z.string(),
         skillCategoryId: z.number(),
-        userId:z.number()
     }),
     updateskill: z.object({
         name: z.string(),
