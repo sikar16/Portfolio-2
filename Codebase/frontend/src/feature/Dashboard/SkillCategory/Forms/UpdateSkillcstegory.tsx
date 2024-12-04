@@ -1,42 +1,42 @@
 import React from "react";
 import InputLabel from "@mui/material/InputLabel";
 import Button from "@mui/material/Button";
-import { useUpdateprojectCatagoryMutation } from "../../../../service/projectCategoryApi"; // Corrected service name
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useUpdateskillCatagoryMutation } from "../../../../service/skillCategoryApi";
 
 interface CategoryType {
     name: string;
     id: number;
 }
 
-interface UpdateProductCategoryProps {
+interface updateskillcategoruProps {
     handleCloseDialog: () => void;
     selectedRowData: CategoryType | null;
 }
 
-interface UpdateProductCategoryFormType {
+interface updateskillcategoruFormType {
     name: string;
 }
 
-const UpdateProductCategory: React.FC<UpdateProductCategoryProps> = ({
+const UpdateSkillcstegory: React.FC<updateskillcategoruProps> = ({
     handleCloseDialog,
     selectedRowData,
 }) => {
-    const [updateProductCategory, { isLoading }] = useUpdateprojectCatagoryMutation();
+    const [updateskillcategoru, { isLoading }] = useUpdateskillCatagoryMutation("");
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<UpdateProductCategoryFormType>({
+    } = useForm<updateskillcategoruFormType>({
         defaultValues: {
             name: selectedRowData?.name || "",
         },
     });
 
-    const onSubmit: SubmitHandler<UpdateProductCategoryFormType> = async (data) => {
+    const onSubmit: SubmitHandler<updateskillcategoruFormType> = async (data) => {
         if (selectedRowData) {
             try {
-                await updateProductCategory({
+                await updateskillcategoru({
                     body: { name: data.name },
                     params: selectedRowData.id,
                 }).unwrap();
@@ -93,4 +93,4 @@ const UpdateProductCategory: React.FC<UpdateProductCategoryProps> = ({
     );
 };
 
-export default UpdateProductCategory;
+export default UpdateSkillcstegory;

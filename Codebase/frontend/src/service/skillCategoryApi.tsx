@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { SkillCategory } from '../_type/_skillType';
 import { getToken } from '../util/getToken';
+import extractErrorMessage from '../util/extractErrorMessage';
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
@@ -31,8 +32,59 @@ export const skillCategoryApi = createApi({
                 response.success ? (response.data as SkillCategory[]) : ([] as SkillCategory[]),
             providesTags: ["skillCategory"], // Ensures data is refetched when invalidated
         }),
-    }),
+        addAllSkillCategory: builder.mutation<void, SkillCategory>({
+            query: (data) => ({
+                url: `/create`,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: data,
+            }),
+            invalidatesTags: ["skillCategory"],
+            transformErrorResponse: (response: any) => {
+                const message = response?.data?.message || "Unknown error";
+                return extractErrorMessage(message);
+            }
+        }),
+        deleteSkillCategory: builder.mutation<void, { params: number }>({
+            query: ({ params }) => ({
+                url: `/delete/${params}`, // Fixed URL format
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }),
+            invalidatesTags: ["skillCategory"],
+            transformErrorResponse: (response: any) => {
+                const message = response?.data?.message || 'Unknown error';
+                return extractErrorMessage(message);
+            },
+        }),
+        updateskillCatagory: builder.mutation({
+            query: ({
+                body: { name },
+                params,
+            }: {
+                body: { name: string };
+                params: number;
+            }) => ({
+                url: `/update/${params}`,
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: { name },
+            }),
+            invalidatesTags: ["skillCategory"], // Ensures refetching after update
+            transformErrorResponse: (response: any) => {
+                const message = response?.data?.message || "Unknown error"; // Safely access the message
+                return extractErrorMessage(message);
+            },
+        }),
+    })
 });
 
+
 // Export hooks for usage in functional components, which are auto-generated based on the defined endpoints
-export const { useGetAllSkillCategoryQuery } = skillCategoryApi;
+export const { useGetAllSkillCategoryQuery, useAddAllSkillCategoryMutation, useDeleteSkillCategoryMutation, useUpdateskillCatagoryMutation } = skillCategoryApi;

@@ -40,7 +40,7 @@ function ProjectCategoryAddForm({ onClose }) {
             {isError && <div className="text-red-600">{error.message}</div>}
             <div className="flex justify-between">
                 <Button color="secondary" onClick={() => setProjectCategoryName("")}>Cancel</Button>
-                <Button color="primary" type="submit" disabled={isLoading}>
+                <Button color="primary" type="submit">
                     {isLoading ? "Adding..." : "Add Category"}
                 </Button>
             </div>
