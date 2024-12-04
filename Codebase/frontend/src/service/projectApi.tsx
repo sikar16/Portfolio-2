@@ -1,25 +1,25 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { SkillCategory } from '../_type/_skillType';
+import { Project } from '../_type/_projectType';
 import { getToken } from '../util/getToken';
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
-// Define a service using a base URL and expected endpoints
-export const skillCategoryApi = createApi({
-    reducerPath: 'skillCategoryApi',
+export const projectApi = createApi({
+    reducerPath: 'projectApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: `${baseUrl}/skillCategory`,
+        baseUrl: `${baseUrl}/project`,
+        // Uncomment and complete this line if you need to set up authorization headers
         prepareHeaders: async (headers) => {
-            const token = await getToken();
+            const token = await getToken(); // Assume you have a function to get the token
             if (token) {
-                headers.set("Authorization", `Bearer ${token}`);
+                headers.set("Authorization", `Bearer ${token}`); // Use Bearer token format
             }
             return headers;
         },
     }),
-    tagTypes: ["skillCategory"],
+    tagTypes: ["project"],
     endpoints: (builder) => ({
-        getAllSkillCategory: builder.query<SkillCategory[], void>({
+        getAllproject: builder.query<Project[], void>({
             query: () => ({
                 url: '/',
                 method: 'GET',
@@ -28,11 +28,11 @@ export const skillCategoryApi = createApi({
                 },
             }),
             transformResponse: (response: any) =>
-                response.success ? (response.data as SkillCategory[]) : ([] as SkillCategory[]),
-            providesTags: ["skillCategory"], // Ensures data is refetched when invalidated
+                response.success ? (response.data as Project[]) : ([] as Project[]),
+            providesTags: ["project"], // Ensures data is refetched when invalidated
         }),
     }),
 });
 
 // Export hooks for usage in functional components, which are auto-generated based on the defined endpoints
-export const { useGetAllSkillCategoryQuery } = skillCategoryApi;
+export const { useGetAllprojectQuery } = projectApi;

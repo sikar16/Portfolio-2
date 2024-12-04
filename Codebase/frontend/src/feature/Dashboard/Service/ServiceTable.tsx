@@ -13,7 +13,7 @@ import {
     TextField,
 } from '@mui/material';
 
-import { useGetAllserviceQuery } from '../../service/serviceApi.tsx';
+import { useGetAllserviceQuery } from '../../../service/serviceApi.tsx';
 
 export type Service = {
     id: number;

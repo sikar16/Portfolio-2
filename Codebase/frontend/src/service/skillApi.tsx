@@ -1,20 +1,21 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Skill } from '../_type/_skillType';
+import { getToken } from '../util/getToken';
 
 const baseUrl = import.meta.env.VITE_API_URL;
 
+// Define a service using a base URL and expected endpoints
 export const skillApi = createApi({
     reducerPath: 'skillApi',
     baseQuery: fetchBaseQuery({
         baseUrl: `${baseUrl}/skill`,
-        // Uncomment and complete this line if you need to set up authorization headers
-        // prepareHeaders: async (headers) => {
-        //     const token = await getToken(); // Assume you have a function to get the token
-        //     if (token) {
-        //         headers.set("Authorization", `${token}`);
-        //     }
-        //     return headers;
-        // },
+        prepareHeaders: async (headers) => {
+            const token = await getToken();
+            if (token) {
+                headers.set("Authorization", `Bearer ${token}`);
+            }
+            return headers;
+        },
     }),
     tagTypes: ["skill"],
     endpoints: (builder) => ({

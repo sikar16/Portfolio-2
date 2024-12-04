@@ -4,29 +4,27 @@ import extractErrorMessage from '../util/extractErrorMessage';
 import { getToken } from '../util/getToken';
 const baseUrl = import.meta.env.VITE_API_URL;
 
-// Define a service using a base URL and expected endpoints
 export const projectCategoryApi = createApi({
     reducerPath: 'projectCategoryApi',
     baseQuery: fetchBaseQuery({
         baseUrl: `${baseUrl}/projectCategory`,
-        // Uncomment and complete this line if you need to set up authorization headers
         prepareHeaders: async (headers) => {
-            const token = await getToken(); // Assume you have a function to get the token
+            const token = await getToken();
             if (token) {
-                headers.set("Authorization", `Bearer ${token}`); // Use Bearer token format
+                headers.set("Authorization", `Bearer ${token}`);
             }
             return headers;
         },
     }),
     tagTypes: ["projectCatagory"],
     endpoints: (builder) => ({
-        getAllproject: builder.query<ProjectCategory[], void>({
+        getAllprojectCategory: builder.query<ProjectCategory[], void>({
             query: () => ({
                 url: '/',
                 method: 'GET',
-                // headers: {
-                //     'Content-Type': 'application/json',
-                // },
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             }),
             transformResponse: (response: any) =>
                 response.success ? (response.data as ProjectCategory[]) : ([] as ProjectCategory[]),
@@ -35,7 +33,57 @@ export const projectCategoryApi = createApi({
                 extractErrorMessage(response?.data?.message || "Unknown error"),
 
         }),
+        addNewProjectCategory: builder.mutation<void, ProjectCategory>({
+            query: (data) => ({
+                url: `/create`,
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: data,
+            }),
+            invalidatesTags: ["projectCatagory"],
+            transformErrorResponse: (response: any) => {
+                const message = response?.data?.message || "Unknown error";
+                return extractErrorMessage(message);
+            },
+        }),
+        deleteProjectCategory: builder.mutation<void, { params: number }>({
+            query: ({ params }) => ({
+                url: `/delete/${params}`,
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }),
+            invalidatesTags: [{ type: 'projectCategory' }], // Ensures cache is invalidated properly
+            transformErrorResponse: (response: any) => {
+                const message = response?.data?.message || 'Unknown error';
+                return extractErrorMessage(message); // Ensure this function is defined elsewhere
+            },
+        }),
+        updateprojectCatagory: builder.mutation({
+            query: ({
+                body: { name },
+                params,
+            }: {
+                body: { name: string };
+                params: number;
+            }) => ({
+                url: `/update/${params}`,
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: { name },
+            }),
+            invalidatesTags: ["projectCatagory"], // Ensures refetching after update
+            transformErrorResponse: (response: any) => {
+                const message = response?.data?.message || "Unknown error"; // Safely access the message
+                return extractErrorMessage(message);
+            },
+        }),
     }),
 });
 
-export const { useGetAllprojectQuery } = projectCategoryApi;
+export const { useGetAllprojectCategoryQuery, useAddNewProjectCategoryMutation, useDeleteProjectCategoryMutation, useUpdateprojectCatagoryMutation } = projectCategoryApi;

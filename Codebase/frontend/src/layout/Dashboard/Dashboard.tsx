@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import Portifolio from '../../feature/Dashboard/Portifolio';
 import Profile from '../../feature/Dashboard/Profile';
-import Service from '../../feature/Dashboard/Service';
-import SkillCategoryTable from '../../feature/Dashboard/SkillCategoryTable';
-import SkillTable from '../../feature/Dashboard/SkillTable';
-import ProjectTable from '../../feature/Dashboard/ProjectTable';
-import ProjectCategoryTable from '../../feature/Dashboard/ProjectCategoryTable';
-import Blog from '../../feature/Dashboard/Blog';
+import Service from '../../feature/Dashboard/Service/Service';
+import SkillCategoryTable from '../../feature/Dashboard/SkillCategory/SkillCategoryTable';
+import SkillTable from '../../feature/Dashboard/Skill/SkillTable';
+import ProjectTable from '../../feature/Dashboard/Project/ProjectTable';
+import ProjectCategoryTable from '../../feature/Dashboard/ProjectCategory/ProjectCategoryTable';
+import Blog from '../../feature/Dashboard/Blog/Blog';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from "react-router-dom";
 

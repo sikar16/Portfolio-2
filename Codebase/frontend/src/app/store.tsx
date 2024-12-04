@@ -5,14 +5,18 @@ import { projectCategoryApi } from '../service/projectCategoryApi';
 import { serviceApi } from '../service/serviceApi';
 import { skillApi } from '../service/skillApi';
 import { loginApi } from '../service/loginApi';
+import { blogApi } from '../service/blogApi';
+import { projectApi } from '../service/projectApi';
 
 export const store = configureStore({
     reducer: {
         [skillCategoryApi.reducerPath]: skillCategoryApi.reducer,
         [projectCategoryApi.reducerPath]: projectCategoryApi.reducer,
         [serviceApi.reducerPath]: serviceApi.reducer,
-        [skillApi.reducerPath]: serviceApi.reducer,
+        [skillApi.reducerPath]: skillApi.reducer,
         [loginApi.reducerPath]: loginApi.reducer,
+        [blogApi.reducerPath]: blogApi.reducer,
+        [projectApi.reducerPath]: projectApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(
@@ -20,7 +24,9 @@ export const store = configureStore({
             projectCategoryApi.middleware,
             serviceApi.middleware,
             skillApi.middleware,
-            loginApi.middleware
+            loginApi.middleware,
+            blogApi.middleware,
+            projectApi.middleware
         ),
 });
 

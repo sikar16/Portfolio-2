@@ -66,6 +66,34 @@ export const skilldata = [
         description: 'Developing applications for mobile devices.',
         image: 'https://via.placeholder.com/50',
     },
+    {
+        id: 4,
+        skillCategory: 'Data Science',
+        skillName: 'Web Development',
+        description: 'Promoting products or brands via digital channels.',
+        image: 'https://via.placeholder.com/50',
+    },
+    {
+        id: 5,
+        skillCategory: 'Data Science',
+        skillName: 'Web Development',
+        description: 'Developing applications for mobile devices.',
+        image: 'https://via.placeholder.com/50',
+    },
+    {
+        id: 4,
+        skillCategory: 'Data Science',
+        skillName: 'Web Development',
+        description: 'Promoting products or brands via digital channels.',
+        image: 'https://via.placeholder.com/50',
+    },
+    {
+        id: 5,
+        skillCategory: 'Data Science',
+        skillName: 'Web Development',
+        description: 'Developing applications for mobile devices.',
+        image: 'https://via.placeholder.com/50',
+    },
    
 ];
 
