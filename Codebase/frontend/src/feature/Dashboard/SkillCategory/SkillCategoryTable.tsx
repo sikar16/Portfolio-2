@@ -194,14 +194,8 @@ const SkillCategoryTable = () => {
                     selectedRowData={selectedRowData}
                 />
             </Dialog>
-            <Dialog open={openDelete} onClose={handleCloseDelete}>
-                <Warning
-                    handleClose={handleCloseDelete}
-                    handleAction={handleDeleteSkillCategoryCategory}
-                    message={`Are you sure you want to delete skill category?`}
-                    isLoading={isDeleting}
-                />
-            </Dialog>
+
+
         </>
     );
 };

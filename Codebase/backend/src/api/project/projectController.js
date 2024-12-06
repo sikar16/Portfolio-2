@@ -7,6 +7,10 @@ const projectController={
             const projects=await prisma.project.findMany({
               where: {
                 userId: +req.user.id 
+            },
+            include:{
+                projectCategory:true,
+                projectImage:true
             }
             }) 
             return res.status(200).json({
@@ -36,6 +40,10 @@ const projectController={
               where: {
                   id: projectId,
                   userId: req.user.id 
+              },
+              include:{
+                projectCategory:true,
+                projectImage:true
               }
           });
   

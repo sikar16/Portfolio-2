@@ -61,12 +61,12 @@ export const blogApi = createApi({
                 return extractErrorMessage(message); // Ensure this function is defined elsewhere
             },
         }),
-        updateblog: builder.mutation({
+        updateBlog: builder.mutation({
             query: ({
-                body: { name },
+                body: { title, content, blogImage },
                 params,
             }: {
-                body: { name: string };
+                body: { title: string; content: string; blogImage: string[] };
                 params: number;
             }) => ({
                 url: `/update/${params}`,
@@ -74,11 +74,11 @@ export const blogApi = createApi({
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: { name },
+                body: { title, content, blogImage },
             }),
-            invalidatesTags: ["blog"], // Ensures refetching after update
+            invalidatesTags: ["blog"],
             transformErrorResponse: (response: any) => {
-                const message = response?.data?.message || "Unknown error"; // Safely access the message
+                const message = response?.data?.message || "Unknown error";
                 return extractErrorMessage(message);
             },
         }),
@@ -86,4 +86,4 @@ export const blogApi = createApi({
 });
 
 // Export hooks for usage in functional components, which are auto-generated based on the defined endpoints
-export const { useGetAllblogQuery, useAddBlogMutation, useDeleteBogMutation, useUpdateblogMutation } = blogApi;
+export const { useGetAllblogQuery, useAddBlogMutation, useDeleteBogMutation, useUpdateBlogMutation } = blogApi;

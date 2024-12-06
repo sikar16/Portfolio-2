@@ -100,7 +100,7 @@ createSkill: async (req, res, next) => {
       console.error("Error creating skill:", error); 
       return res.status(500).json({
           success: false,
-          message: "An error occurred while creating the skill.",
+          message: error,
       });
   }
 },
