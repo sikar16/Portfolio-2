@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useAddNewSkillMutation } from "../../../../service/skillApi";
 import { useGetAllSkillCategoryQuery } from "../../../../service/skillCategoryApi";
 
-function AddSkill() {
+function AddSkill({ onClose }) {
     const [skillName, setSkillName] = useState("");
     const [skillCategoryId, setSkillCategoryId] = useState(""); // Changed to match API expectation
     const [description, setDescription] = useState("");
@@ -24,12 +24,11 @@ function AddSkill() {
         try {
             await addSkill(formData).unwrap();
             alert("Skill added successfully");
-            onclose()
-            // Reset form fields
             setSkillName("");
             setSkillCategoryId("");
             setDescription("");
             setImage("");
+            onClose()
         } catch (err) {
             console.log(err);
             alert(error);

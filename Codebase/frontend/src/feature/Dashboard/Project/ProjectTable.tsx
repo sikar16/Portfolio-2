@@ -21,7 +21,7 @@ import UpdateProject from './Forms/UpdateProject';
 export type Project = {
     id: number;
     name: string;
-    tecnology: string;
+    technology: string;
     description: string;
     demoLink: string;
     gitLink: string;
@@ -49,6 +49,8 @@ const ProjectTable = () => {
     const [selectedRowData, setSelectedRowData] = useState(null);
     const { data, isLoading, refetch } = useGetAllprojectQuery();
     const [deleteProject, { isLoading: isDeleting }] = useDeleteProjectMutation();
+
+    console.log(data)
 
     const handleClickOpenAdd = () => {
         setOpenAdd(true);
@@ -103,8 +105,8 @@ const ProjectTable = () => {
                 size: 150,
             },
             {
-                accessorKey: 'tecnology',
-                header: 'tecnology Used',
+                accessorKey: 'technology',
+                header: 'technology Used',
                 size: 150,
             },
             {
@@ -172,7 +174,7 @@ const ProjectTable = () => {
     const table = useMaterialReactTable({
         columns,
         data: isLoading ? [] : data || [],
-        enableRowActions: true,
+        enableRowActions: false,
         enableColumnFilterModes: true,
         enableColumnOrdering: true,
         enableGrouping: true,
@@ -202,32 +204,32 @@ const ProjectTable = () => {
         return <div>Loading...</div>;
     }
 
-    if (!data || data.length === 0) {
-        return <div>No projects found.</div>;
-    }
 
     return (
         <>
             <div className="flex justify-between my-4 items-center">
                 <p className="ms-4 text-2xl font-semibold text-gray-800">Projects</p>
-                <Button
-                    variant="contained"
-                    color="primary"
+
+                <button
+                    className="bg-[#F57920] text-white px-5 gap-1 py-2 rounded-lg flex items-center"
                     onClick={handleClickOpenAdd}
-                    startIcon={
+                >
+                    <span className="items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24">
                             <path fill="white" d="M12.75 7a.75.75 0 0 0-1.5 0v4.25H7a.75.75 0 0 0 0 1.5h4.25V17a.75.75 0 0 0 1.5 0v-4.25H17a.75.75 0 0 0 0-1.5h-4.25z"></path>
                         </svg>
-                    }
-                >
-                    Add Project
-                </Button>
+                    </span>
+                    <span> Add Project</span>
+                </button>
+
             </div>
             <MaterialReactTable table={table} />
+
+
             <Dialog open={openAdd} onClose={handleClickCloseAdd}>
-                <DialogTitle className="text-lg font-semibold text-gray-700">Add Project</DialogTitle>
-                <hr className='text-black shadow-lg my-2' />
-                <AddProject onClose={handleClickCloseAdd} />
+                <AddProject
+                    onClose={handleClickCloseAdd}
+                />
             </Dialog>
             <Dialog open={openUpdate} onClose={handleClickCloseUpdate}>
                 <UpdateProject

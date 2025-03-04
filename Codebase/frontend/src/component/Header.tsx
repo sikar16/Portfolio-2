@@ -4,12 +4,18 @@ import { MdNightlight, MdLightMode, MdBrightnessAuto } from 'react-icons/md';
 import { useThemeData } from '../context/them_context';
 import IconContainer from './icon/Icon_container';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isSticky, setIsSticky] = useState(false);
     const { themeData, setThemeData } = useThemeData();
 
+    const { isLoggedIn, isUser } = useAuth()
+
+    if (isLoggedIn) {
+        console.log(isUser)
+    }
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
@@ -54,16 +60,16 @@ function Header() {
         >
             <div className="flex items-center gap-3">
                 <div className="bg-[#FF7D00] w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold">
-                    MT
+                    SY
                 </div>
-                <span className="font-bold text-lg">Mihiretu T.</span>
+                <span className="font-bold text-lg">Sikar Y.</span>
             </div>
 
             <nav className="hidden md:block">
                 <ul className="flex gap-3">
                     <li className="relative group">
                         <a
-                            href="#"
+                            href="#home"
                             className="px-4 py-2 rounded-3xl hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
                         >
                             Home
@@ -71,7 +77,7 @@ function Header() {
                     </li>
                     <li className="relative group">
                         <a
-                            href="#"
+                            href="#about"
                             className="px-4 py-2 rounded-3xl hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
                         >
                             About
@@ -79,57 +85,26 @@ function Header() {
                     </li>
                     <li className="relative group">
                         <a
-                            href="#"
+                            href="#service"
                             className="px-4 py-2 rounded-3xl hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
                         >
                             Service
                         </a>
                         <ul className="absolute top-full left-0 bg-gray-800 py-2 px-4 rounded-lg shadow-lg mt-2 invisible group-hover:visible transition-opacity duration-300">
-                            <li>
-                                <a
-                                    href="#"
-                                    className="block px-4 py-2 rounded-md hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
-                                >
-                                    Web Development
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="block px-4 py-2 rounded-md hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
-                                >
-                                    Mobile App Development
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="block px-4 py-2 rounded-md hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
-                                >
-                                    UI/UX Design
-                                </a>
-                            </li>
                         </ul>
                     </li>
                     <li className="relative group">
                         <a
-                            href="#"
+                            href="#portfolio"
                             className="px-4 py-2 rounded-3xl hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
                         >
                             Portfolio
                         </a>
                     </li>
+
                     <li className="relative group">
                         <a
-                            href="#"
-                            className="px-4 py-2 rounded-3xl hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
-                        >
-                            Blog
-                        </a>
-                    </li>
-                    <li className="relative group">
-                        <a
-                            href="#"
+                            href="#contact"
                             className="px-4 py-2 rounded-3xl hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
                         >
                             Contact
@@ -145,13 +120,13 @@ function Header() {
                     iconsClassName="my-custom-icon-class"
                     children={null}
                 />
-                <div>
+                {/* <div>
                     <Link to="/dashboard">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className='hover:text-[#FF7D00] cursor-pointer'>
                             <path fill="currentColor" d="M9 21H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v14c0 1.1-.9 2-2 2m6 0h4c1.1 0 2-.9 2-2v-5c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v5c0 1.1.9 2 2 2m6-13V5c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v3c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2" />
                         </svg>
                     </Link>
-                </div>
+                </div> */}
 
 
                 <button
@@ -170,7 +145,7 @@ function Header() {
                     <ul className="flex flex-col gap-4">
                         <li>
                             <a
-                                href="#"
+                                href="#home"
                                 className="block px-4 py-2 rounded-md text-center hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
@@ -179,7 +154,7 @@ function Header() {
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="#about"
                                 className="block px-4 py-2 rounded-md text-center hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
@@ -188,7 +163,7 @@ function Header() {
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="#service"
                                 className="block px-4 py-2 rounded-md text-center hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
@@ -197,25 +172,17 @@ function Header() {
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="#portfolio"
                                 className="block px-4 py-2 rounded-md text-center hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
                                 Portfolio
                             </a>
                         </li>
+
                         <li>
                             <a
-                                href="#"
-                                className="block px-4 py-2 rounded-md text-center hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                            >
-                                Blog
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#"
+                                href="#contact"
                                 className="block px-4 py-2 rounded-md text-center hover:bg-[#FF7D00] hover:text-white transition-colors duration-300"
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >

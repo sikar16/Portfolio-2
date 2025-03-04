@@ -58,7 +58,6 @@ const Dashboard = () => {
                             </div>
                         </div>
                         <div>
-                            <p className='text-xl text-black'>Abebe K.</p>
                         </div>
                     </div>
                     <button

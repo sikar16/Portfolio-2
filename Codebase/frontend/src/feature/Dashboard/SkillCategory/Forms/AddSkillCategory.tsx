@@ -2,7 +2,7 @@ import { Button } from "@mui/material"
 import { useState } from "react"
 import { useAddAllSkillCategoryMutation } from "../../../../service/skillCategoryApi";
 
-function AddSkillCategory({ onClose: any }) {
+function AddSkillCategory({ onClose }) {
     const [skillCategoryName, setSkillCategoryName] = useState("");
     const [addskillcategory, { isError, isLoading, error }] = useAddAllSkillCategoryMutation()
     const handlsumbit = async (e) => {
@@ -12,10 +12,10 @@ function AddSkillCategory({ onClose: any }) {
         };
 
         try {
-            await addskillcategory(formData).unwrap(); // Await the mutation
+            await addskillcategory(formData).unwrap();
             alert("Skill category added successfully");
-            setSkillCategoryName(""); // Reset the input field
-            onClose(); // Close the dialog
+            setSkillCategoryName("");
+            onClose();
         } catch (error) {
             alert(error || "Failed to add skill category");
         }

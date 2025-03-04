@@ -67,7 +67,7 @@ const SkillCategoryTable = () => {
         setOpenDelete(true);
     };
 
-    const handleDeleteSkillCategoryCategory = () => {
+    const handleDeleteSkillCategory = () => {
         if (selectedRowData) {
             deleteSkillCategory({ params: selectedRowData.id })
                 .unwrap()
@@ -194,7 +194,14 @@ const SkillCategoryTable = () => {
                     selectedRowData={selectedRowData}
                 />
             </Dialog>
-
+            <Dialog open={openDelete} onClose={handleCloseDelete}>
+                <Warning
+                    handleClose={handleCloseDelete}
+                    handleAction={handleDeleteSkillCategory}
+                    message={`Are you sure you want to delete this skill?`}
+                    isLoading={isDeleting}
+                />
+            </Dialog>
 
         </>
     );

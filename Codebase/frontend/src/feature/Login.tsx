@@ -47,14 +47,14 @@ function Login() {
             const response: LoginResponse = await login(data).unwrap();
             console.log('API Response:', response);
 
-            console.log(response.message)
+            console.log(response)
+            console.log(response.user)
 
 
 
             if (response.success) {
                 localStorage.setItem("token", JSON.stringify({ token: response.token }));
                 fetchData();
-
                 // Redirect based on user role
                 switch (response.role) {
                     case 'user':

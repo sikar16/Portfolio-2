@@ -20,7 +20,7 @@ export interface Project {
     projectImagesId: number;
     projectImage: ProjectImage;
     technologiesId: number;
-    technologies: ProjectTechnology;
+    technology: ProjectTechnology;
 }
 
 export interface ProjectImage {
@@ -31,7 +31,7 @@ export interface ProjectImage {
 
 export interface ProjectTechnology {
     id: number;
-    name: string;
+    technology: string;
     user: User[];
     projects: Project[];
 }
