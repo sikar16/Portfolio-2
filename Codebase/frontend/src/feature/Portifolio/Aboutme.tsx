@@ -3,10 +3,11 @@ import image from "../../assets/hero2.png";
 
 function AboutMe() {
     const handleDownload = () => {
-        const cvUrl = "/Sikar Resume.pdf"; // File should be inside the public folder
+        const cvUrl = "/Sikar CV (2).pdf";
+        // C:\Users\sikar\Documents\final mine portifolio\myPortifolio\codebase\frontend\src\assets\Sikar CV (2).pdf
         const link = document.createElement("a");
         link.href = cvUrl;
-        link.setAttribute("download", "Sikar Resume.pdf");
+        link.setAttribute("download", "Sikar CV (2).pdf");
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
