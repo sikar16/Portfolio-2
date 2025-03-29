@@ -56,7 +56,7 @@ export const projectCategoryApi = createApi({
                     'Content-Type': 'application/json',
                 },
             }),
-            invalidatesTags: [{ type: 'projectCategory' }], // Ensures cache is invalidated properly
+            invalidatesTags: [{ type: 'projectCatagory' }], // Ensures cache is invalidated properly
             transformErrorResponse: (response: any) => {
                 const message = response?.data?.message || 'Unknown error';
                 return extractErrorMessage(message); // Ensure this function is defined elsewhere

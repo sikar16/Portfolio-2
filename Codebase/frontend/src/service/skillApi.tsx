@@ -55,7 +55,7 @@ export const skillApi = createApi({
                     'Content-Type': 'application/json',
                 },
             }),
-            invalidatesTags: [{ type: 'Skill' }],
+            invalidatesTags: [{ type: 'skill' }],
             transformErrorResponse: (response: any) => {
                 const message = response?.data?.message || 'Unknown error';
                 return extractErrorMessage(message);

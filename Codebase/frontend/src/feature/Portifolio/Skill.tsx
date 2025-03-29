@@ -1,4 +1,3 @@
-import React from "react";
 
 const skillsData = [
     {
@@ -14,6 +13,7 @@ const skillsData = [
         category: "Web Development",
         skills: [
             { name: "React", level: 85 },
+            { name: "Next", level: 65 },
             { name: "HTML", level: 90 },
             { name: "CSS", level: 85 },
             { name: "Bootstrap", level: 75 },
