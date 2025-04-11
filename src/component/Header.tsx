@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { MdNightlight, MdLightMode, MdBrightnessAuto } from 'react-icons/md';
 import { useThemeData } from '../context/them_context';
 import IconContainer from './icon/Icon_container';
-import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 function Header() {

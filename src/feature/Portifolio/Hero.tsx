@@ -1,4 +1,4 @@
-import React from "react";
+
 import { motion } from "framer-motion"; // Import framer-motion
 import hero from "../../assets/hero8.jpg"; // Adjust the path as necessary
 

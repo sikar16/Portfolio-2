@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { FaEnvelope, FaPhone, FaLinkedin, FaGithub, FaTwitter, FaTelegram, FaInstagram } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaEnvelope, FaPhone, FaLinkedin, FaGithub, FaTelegram, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
     const [email, setEmail] = useState('');
     const [subscribed, setSubscribed] = useState(false);
 
-    const handleSubscribe = (e) => {
+    const handleSubscribe = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (email) {
             setSubscribed(true);

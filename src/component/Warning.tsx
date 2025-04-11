@@ -5,7 +5,7 @@ interface WarningProps {
   handleClose: () => void;
   handleAction: () => void;
   isLoading: boolean;
-  isSuccess: boolean;
+
 }
 
 const Warning: React.FC<WarningProps> = ({

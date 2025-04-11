@@ -2,10 +2,10 @@ import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaLinkedin, FaGithub, FaTelegra
 
 const Contact = () => {
     // Function to handle form submission
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const formData = new FormData(e.target);
+        const formData = new FormData(e.target as HTMLFormElement);
         const data = Object.fromEntries(formData);
 
         try {
@@ -19,7 +19,7 @@ const Contact = () => {
 
             if (response.ok) {
                 alert("Message sent successfully!");
-                e.target.reset(); // Reset the form
+                (e.target as HTMLFormElement).reset(); // Reset the form
             } else {
                 alert("Failed to send message. Please try again.");
             }

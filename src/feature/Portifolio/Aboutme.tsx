@@ -1,10 +1,9 @@
-import React from "react";
+import { motion } from "framer-motion"; // Import motion
 import image from "../../assets/hero2.png";
 
 function AboutMe() {
     const handleDownload = () => {
         const cvUrl = "/Sikar CV (2).pdf";
-        // C:\Users\sikar\Documents\final mine portifolio\myPortifolio\codebase\frontend\src\assets\Sikar CV (2).pdf
         const link = document.createElement("a");
         link.href = cvUrl;
         link.setAttribute("download", "Sikar CV (2).pdf");
@@ -13,7 +12,6 @@ function AboutMe() {
         document.body.removeChild(link);
     };
 
-
     return (
         <section className="relative mx-auto p-6 bg-[#efefef]" id="about">
             <div className="flex flex-col lg:flex-row gap-8 items-center lg:items-start max-w-7xl mx-auto">
@@ -21,15 +19,10 @@ function AboutMe() {
                 {/* Profile Image */}
                 <div className="lg:w-1/2 flex justify-center">
                     <div className="hidden md:block relative w-72 h-72 sm:w-96 sm:h-96 bg-[#ffd6b4] rounded-full md:flex items-center justify-center overflow-hidden shadow-lg transition-transform transform hover:scale-105">
-                        {/* <img
+                        <motion.img
                             src={image}
                             alt="Sikar Yosef"
                             className="w-full h-full object-cover rounded-full border-4 border-white shadow-md"
-                        /> */}
-                        <img
-                            src={image}
-                            alt="Sikar Yosef"
-                            className="w-full h-full object-center"
                             initial={{ rotate: -10 }}
                             animate={{ rotate: 30 }}
                             transition={{ duration: 0.8, delay: 0.5 }}
